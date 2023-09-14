@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         'outline': '#E0E0E0',
+        'primary' : '#165BAA'
       }
     },
   },
