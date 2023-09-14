@@ -8,10 +8,11 @@ export default {
     extend: {
       colors: {
         'outline': '#E0E0E0',
-        'primary' : '#165BAA'
+        'primary' : '#165BAA',
+        'secondary': '#f57390'
       }
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 
