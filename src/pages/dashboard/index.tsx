@@ -1,46 +1,187 @@
-import React from 'react'
-import Sidebar from '../../component/Sidebar'
-import Navbar from '../../component/Navbar'
+import React from "react";
+import Sidebar from "../../component/Sidebar";
+import Navbar from "../../component/Navbar";
+import Button from "../../component/Button";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Doughnut } from "react-chartjs-2";
+import faker from "faker";
 
 const Dashboard = () => {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom" as const,
+      },
+    },
+  };
+
+  const labels = ["Week 1", "Week 2", "Week 3", "Week 4"];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Result Key",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Progress",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+
+  ChartJS.register(ArcElement, Tooltip, Legend);
+
+  const dataDonuts = {
+    labels: ["Laki-laki", "Perempuan"],
+    datasets: [
+      {
+        data: [12, 19],
+        backgroundColor: ["rgba(22, 91, 170, 1)", "rgba(255, 99, 132, 1)"],
+      },
+    ],
+  };
+
   return (
     <section>
-        <div>
-            <Navbar />
-            <div className='bg-white h-[14vh] px-24 flex flex-col py-2.5'>
-                <div className='text-2xl font-semibold'>Welcome to HRIS</div>
-                <div className='text-xs'>
-                It’s Tuesday, 24 November
-                </div>
-            </div>
+      <div>
+        <Navbar />
+        <div className="bg-white h-[14vh] px-24 flex flex-col py-2.5">
+          <div className="text-3xl font-bold">Welcome to HRIS</div>
+          <div className="text-xs mt-1">It’s Tuesday, 24 November</div>
         </div>
-        <div className='mt-10 px-10 flex flex-row'>
-            <Sidebar />
-            <div className='w-[80vw] bg-white mx-10 relative'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius minus consectetur accusantium sit dolore reprehenderit pariatur libero, cupiditate consequuntur odit hic tempore. Quisquam rem eveniet adipisci magni ex delectus sequi.
-                Dolor natus nostrum qui quia, dicta, sunt sapiente unde consequuntur placeat aspernatur fugit ipsum id, delectus eveniet error deleniti quaerat eius sequi consectetur culpa adipisci laudantium? Ea est dolorum rem?
-                Assumenda cum placeat neque accusamus, sint non debitis nihil qui? Dolorem repellendus veritatis atque nesciunt animi tempora earum odio velit impedit at, perspiciatis sapiente accusantium laudantium, eos, tenetur error. Voluptates?
-                Obcaecati laborum rerum temporibus atque, a consequuntur illum ipsum veniam debitis, consectetur exercitationem magni sint saepe aut commodi culpa natus ipsam quam nesciunt laboriosam! Veritatis nobis corporis sed nam vero?
-                Facilis necessitatibus sed enim perspiciatis officia sapiente eveniet dignissimos iure pariatur animi ipsam tenetur, explicabo beatae amet earum id accusamus minima! Beatae incidunt reiciendis, temporibus possimus labore nemo eum iste!
-                Maxime odio nostrum mollitia repudiandae consequatur incidunt nisi porro quod nam officia sunt nesciunt adipisci nemo animi dolore, recusandae laborum deleniti debitis. Necessitatibus veniam placeat corrupti dolorum sapiente impedit nihil.
-                Repudiandae, ad corporis ratione omnis iusto totam placeat quas quos animi consectetur, voluptatum perspiciatis voluptatem quo esse odit sequi error necessitatibus, possimus est perferendis dolores sunt mollitia eveniet sed. Delectus.
-                Ad fugiat vero reprehenderit. Dolorem quas animi reiciendis accusamus consequuntur. Incidunt aliquam magnam eius dolorem aliquid rem necessitatibus? Explicabo maiores voluptas quam, porro qui magnam repudiandae enim exercitationem sunt repellendus!
-                Repellendus inventore hic, fugiat ducimus beatae sed culpa ipsam voluptatibus voluptatum, perspiciatis qui exercitationem reprehenderit reiciendis quod vero sapiente cum recusandae dolore ullam? Sequi quia dicta tempora unde in repudiandae.
-                Numquam inventore recusandae cumque impedit harum tempora fugit dignissimos possimus praesentium repellat quisquam aliquid voluptatum doloribus dolore quidem architecto fugiat suscipit animi cupiditate, rem quo veniam doloremque. Quisquam, sapiente a.
-                Placeat sint ullam inventore eius mollitia quibusdam, optio necessitatibus aperiam eveniet? Sequi magni perspiciatis voluptate ullam commodi. Odio dignissimos neque nam dolorum nostrum enim ex eaque reiciendis, est esse asperiores?
-                Adipisci modi, dignissimos nesciunt molestiae temporibus corrupti quaerat ea saepe possimus mollitia repudiandae voluptatem repellat delectus enim minus odio sed a veniam quibusdam quos? Laboriosam iusto impedit obcaecati ipsum dolorem?
-                Excepturi magnam quasi quas placeat id, cupiditate accusamus, nam odio perferendis optio delectus facilis harum debitis natus tempora repudiandae? Aliquid esse modi molestias? Doloribus aspernatur repellat porro exercitationem quasi magni.
-                Dignissimos, ducimus doloremque. Consequuntur dolores ipsum voluptatum neque accusamus fugit voluptatem laboriosam vero quam itaque, dolor dolorum? Tempore assumenda consectetur, officiis temporibus impedit perspiciatis fugiat dignissimos pariatur veniam, atque enim.
-                Blanditiis, inventore dolorem. Quo, nemo accusantium. Expedita, amet quibusdam? Ab, impedit rem! Facere amet laboriosam deleniti rem. Assumenda, autem quisquam. Sunt, eligendi explicabo? Omnis dolor recusandae perspiciatis repellendus earum tenetur?
-                Ipsum hic, consequuntur eos sed itaque provident est quis repudiandae sunt laborum tempora ratione possimus facilis ex? Veniam in sed quam, accusamus quidem eveniet repudiandae velit, cum, rem illo laudantium.
-                Iste minus est accusamus vel cum modi vero ipsa accusantium debitis itaque atque facere, cumque quisquam natus magni voluptatibus placeat incidunt eius sunt. Aspernatur, voluptatem saepe sit delectus illum sint.
-                Aspernatur in omnis cum sint minus, architecto id. Dignissimos, a, dolorem, sequi sint consectetur minima quasi ab ea dolor iusto at maiores atque expedita nisi vero voluptates illum! Odio, non.
-                Repellat autem eaque reprehenderit vero accusamus dolorem quisquam iure, earum esse, at dolores. Harum optio ex sit recusandae repudiandae magni reiciendis quis pariatur ratione beatae. Facere iure explicabo eaque molestias!
-                Nostrum deleniti dolores neque temporibus iusto ab recusandae deserunt aperiam obcaecati nisi dolor repellendus itaque hic eaque maxime rerum tenetur vitae dicta magnam natus modi voluptates corrupti, ipsam pariatur? Excepturi.
+      </div>
+      <div className="mt-10 px-10 flex flex-row">
+        <Sidebar />
+        <div className="w-[80vw] flex flex-col">
+          <div className="flex flex-row justify-between mr-10">
+            <div className="mx-10 mb-5 flex flex-row place-items-center">
+              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
+                <img
+                  src="../../../public/logo.png"
+                  alt=""
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col">
+                <div className="text-[18px] font-semibold">Denson Patibang</div>
+                <div className="text-[12px]">Leader : Teknis IT</div>
+              </div>
             </div>
+            <div>
+              <Button
+                label="Logout"
+                icon={<i className="fa-solid fa-right-from-bracket mr-2"></i>}
+                classname="bg-white text-gray-400 hover:bg-gray-200"
+              />
+            </div>
+          </div>
+          <div className="bg-white mx-10 p-6 rounded-lg ">
+            <div className="text-center mb-4 text-[20px] font-semibold">
+              Message
+            </div>
+            <div className="overflow-x-auto">
+              <div className="overflow-x-auto">
+                <table className="table">
+                  <thead className="bg-primary text-white border-none ">
+                    <tr className="border-none ">
+                      <th className="rounded-l-md"></th>
+                      <th>Name</th>
+                      <th>Request For</th>
+                      <th className="rounded-r-md">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="border-none">
+                    <tr className="border-none">
+                      <th>1</th>
+                      <td>Diskaa</td>
+                      <td>Request Timeoff from Sunday , 3 September 2023</td>
+                      <td>Pending</td>
+                    </tr>
+                    <tr className="border-none">
+                      <th>2</th>
+                      <td>Diskaa</td>
+                      <td>Request Timeoff from Sunday , 3 September 2023</td>
+                      <td>Pending</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 mt-5 mx-10 mb-10">
+            <div className="bg-white p-3 rounded-lg w-full h-72">
+              <div className="text-center mb-2 text-[16px] font-semibold">
+                Result Target
+              </div>
+              <div className="mx-auto text-center">
+                <Line options={options} data={data} />
+              </div>
+            </div>
+            <div className="bg-white p-3 rounded-lg w-full h-72">
+              <div className="text-center mb-2 text-[16px] font-semibold">
+                Employee Status
+              </div>
+              <div className="mx-auto text-center mt-5">
+                <progress
+                  className="progress progress-primary w-56"
+                  value={20}
+                  max="100"
+                ></progress>
+                <progress
+                  className="progress progress-secondary w-56 "
+                  value={80}
+                  max="100"
+                ></progress>
+              </div>
+              <div className="flex flex-row text-center mx-10 mt-5 place-items-center justify-between">
+                <div className="w-7 h-2 bg-primary"></div> <span className="text-[14px] text-gray-600">Employee</span>
+                <div className="w-7 h-2 bg-secondary"></div> <span className="text-[14px] text-gray-600">Manajer</span>
+              </div>
+            </div>
+            <div className="bg-white p-3 rounded-lg w-full h-72 ">
+              <div className="text-center mb-2 text-[16px] font-semibold">
+                Gender Diversity
+              </div>
+              <div className="w-60 h-60 mx-auto">
+                <Doughnut data={dataDonuts} options={options} />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
