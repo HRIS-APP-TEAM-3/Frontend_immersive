@@ -82,7 +82,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar />
+        <Sidebar height="h-[68vh]"/>
         <div className="w-[80vw] flex flex-col">
           <div className="flex flex-row justify-between mr-10">
             <div className="mx-10 mb-5 flex flex-row place-items-center">
