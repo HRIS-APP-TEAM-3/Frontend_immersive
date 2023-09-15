@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useLocation } from "react-router-dom";
 
-const Sidebar = () => {
+interface SidebarProps {
+  height: string
+}
+
+const Sidebar: FC<SidebarProps> = ({height}) => {
   const location = useLocation();
   const [activePage, setActivePage] = useState<string>("");
 
@@ -10,6 +14,8 @@ const Sidebar = () => {
 
     if (pathname === "/dashboard") {
       setActivePage("dashboard");
+    } else if (pathname === "/user") {
+      setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
     } else if (pathname === "/history") {
@@ -22,9 +28,9 @@ const Sidebar = () => {
   });
 
   return (
-    <div className="flex flex-col justify-between w-[20vw] bg-white rounded-lg  h-[68vh] ">
+    <div className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
       <ul className="p-6 leading-[50px] ">
-        <a href="">
+        <a href="/dashboard">
           <li
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "dashboard"
@@ -42,6 +48,15 @@ const Sidebar = () => {
             }`}
           >
             <i className="fa-solid fa-user w-7"></i> Employee
+          </li>
+        </a>
+        <a href="/user">
+          <li
+            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
+              activePage === "user" ? "bg-primary text-white" : "text-black"
+            }`}
+          >
+            <i className="fa-solid fa-user w-7"></i> User
           </li>
         </a>
         <a href="">
