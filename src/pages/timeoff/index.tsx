@@ -17,7 +17,7 @@ const TimeOff = () => {
                         <div className="flex flex-col text-end">
                             <div>
                                 <Button
-                                    label="Add Employee"
+                                    label="Request Time Off"
                                     classname="bg-primary text-white px-10"
                                 />
                             </div>
@@ -27,25 +27,25 @@ const TimeOff = () => {
                                     <table className="table ">
                                         <thead className="bg-primary text-white border-none ">
                                             <tr className="border-none ">
-                                                <th className="rounded-l-md">Photo</th>
-                                                <th>Employee</th>
-                                                <th>Email</th>
-                                                <th>Division</th>
-                                                <th>Job Level</th>
-                                                <th>Join Date</th>
-                                                <th>Gender</th>
+                                                <th className="rounded-l-md">No.</th>
+                                                <th>Created At</th>
+                                                <th>Policy Code</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Notes</th>
+                                                <th>Status</th>
                                                 <th className="rounded-r-md">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody className="border-none">
                                             <tr className="border-none">
-                                                <th><img src="./diskabotak.jpg" alt="Foto" width="50" height="50" /></th>
-                                                <td>Diska Ganteng</td>
-                                                <td>siganteng@gmail.com</td>
-                                                <td>Frontend</td>
-                                                <td>Manajer</td>
-                                                <td>31-Feb</td>
-                                                <td>LANANG</td>
+                                                <th>1</th>
+                                                <td>12 Sept</td>
+                                                <td>CT</td>
+                                                <td>12 Sept</td>
+                                                <td>17 Sept</td>
+                                                <td><img src="./EYE.png" alt="Foto" width="20" height="20" /></td>
+                                                <td>Pending</td>
                                                 <td>
                                                     <div className="flex flex-row gap-2">
                                                         <div >

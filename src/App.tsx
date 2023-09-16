@@ -8,6 +8,7 @@ import HistoryReimbursement from './pages/history/reimbursement'
 import Login from './pages/Login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/timeoff'
+import HistoryTimeOff from './pages/history/TimeOff'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route element={<Login/>} path='/'/>
         <Route element={<ListEmployee/>} path='/listemployee'/>
         <Route element={<TimeOff/>} path='/timeoff'/>
+        <Route element={<HistoryTimeOff/>} path='/history/timeoff'/>
         <Route element={<Dashboard/>} path='/dashboard'/>
         <Route element={<User/>} path='/user'/>
         <Route element={<ListReimbursement/>} path='/reimbursement'/>
