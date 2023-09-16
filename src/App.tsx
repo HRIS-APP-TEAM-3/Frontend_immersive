@@ -5,6 +5,8 @@ import User from './pages/user/listUser'
 import ListReimbursement from './pages/employee/reimbursement/listReimbursement'
 import TakenReimbursement from './pages/employee/reimbursement/reimbursementTaken'
 import HistoryReimbursement from './pages/history/reimbursement'
+import ResultKey from './pages/result/listResult'
+import Progress from './pages/result/progress'
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
         <Route element={<ListReimbursement/>} path='/reimbursement'/>
         <Route element={<TakenReimbursement/>} path='/reimbursement-taken'/>
         <Route element={<HistoryReimbursement/>} path='/history/reimbursement'/>
+        <Route element={<ResultKey/>} path='/result-key'/>
+        <Route element={<Progress/>} path='/progress'/>
       </Routes>
     </BrowserRouter>
   )
