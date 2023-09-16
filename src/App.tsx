@@ -7,11 +7,17 @@ import TakenReimbursement from './pages/employee/reimbursement/reimbursementTake
 import HistoryReimbursement from './pages/history/reimbursement'
 import ResultKey from './pages/result/listResult'
 import Progress from './pages/result/progress'
+import Login from './pages/login'
+import ListEmployee from './pages/employee/listEmployee'
+import TimeOff from './pages/timeoff'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+      <Route element={<Login/>} path='/'/>
+        <Route element={<ListEmployee/>} path='/listemployee'/>
+        <Route element={<TimeOff/>} path='/timeoff'/>
         <Route element={<Dashboard/>} path='/dashboard'/>
         <Route element={<User/>} path='/user'/>
         <Route element={<ListReimbursement/>} path='/reimbursement'/>
