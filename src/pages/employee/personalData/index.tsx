@@ -1,7 +1,7 @@
 import  { useState } from 'react'
-import Navbar from '../../../../component/Navbar';
-import Sidebar from '../../../../component/Sidebar';
-import Button from '../../../../component/Button';
+import Navbar from '../../../component/Navbar';
+import Sidebar from '../../../component/Sidebar';
+import Button from '../../../component/Button';
 
 
 const PersonalData = () => {
@@ -37,17 +37,17 @@ return (
             </div>
           </div>
           <div className="flex flex-row mx-10 ">
-            <a href="/employee/personaldata" className="text-gray-500 hover:text-gray-500">
+            <a href="/personaldata" className="text-gray-500 hover:text-gray-500">
               <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Personal Data
               </div>
             </a>
-            <a href="/employee/attandence" className="text-gray-500 hover:text-gray-500">
+            <a href="/attandence" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Attendance
               </div>
             </a>
-            <a href="/employee/timeoff" className="text-gray-500 hover:text-gray-500">
+            <a href="/timeoff" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Time Off
               </div>

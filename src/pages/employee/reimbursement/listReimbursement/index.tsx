@@ -41,23 +41,23 @@ const ListReimbursement = () => {
             </div>
           </div>
           <div className="flex flex-row mx-10 ">
-            <a href="" className="text-gray-500 hover:text-gray-500">
+            <a href="/personaldata" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Personal Data
               </div>
             </a>
-            <a href="" className="text-gray-500 hover:text-gray-500">
+            <a href="/attandence" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Attendance
               </div>
             </a>
-            <a href="" className="text-gray-500 hover:text-gray-500">
+            <a href="/timeoff" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Time Off
               </div>
             </a>
             <a href="/reimbursement" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+              <div className="bg-white  px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Reimbursement
               </div>
             </a>
