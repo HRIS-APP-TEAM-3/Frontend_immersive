@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 
 interface ButtonProps {
-    label: string,
+    label?: string,
     classname?: string,
     icon?: ReactNode
     onClick?: React.MouseEventHandler

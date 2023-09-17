@@ -11,7 +11,7 @@ const InputSearch: FC<InputSearchProps> = ({ placeholder }) => {
       <input
         type="text"
         placeholder={placeholder}
-        className="focus:outline-none text-[13px]"
+        className="focus:outline-none text-[13px] bg-transparent"
       />
     </div>
   );

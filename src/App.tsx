@@ -5,7 +5,9 @@ import User from './pages/user/listUser'
 import ListReimbursement from './pages/employee/reimbursement/listReimbursement'
 import TakenReimbursement from './pages/employee/reimbursement/reimbursementTaken'
 import HistoryReimbursement from './pages/history/reimbursement'
-import Login from './pages/Login'
+import ResultKey from './pages/result/listResult'
+import Progress from './pages/result/progress'
+import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/timeoff'
 import HistoryTimeOff from './pages/history/TimeOff'
@@ -23,6 +25,8 @@ const App = () => {
         <Route element={<ListReimbursement/>} path='/reimbursement'/>
         <Route element={<TakenReimbursement/>} path='/reimbursement-taken'/>
         <Route element={<HistoryReimbursement/>} path='/history/reimbursement'/>
+        <Route element={<ResultKey/>} path='/result-key'/>
+        <Route element={<Progress/>} path='/progress'/>
       </Routes>
     </BrowserRouter>
   )
