@@ -20,8 +20,10 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("employee");
     } else if (pathname === "/history") {
       setActivePage("history");
-    } else if (pathname === "/key-result") {
-      setActivePage("key-result");
+    } else if (pathname === "/result-key") {
+      setActivePage("result-key");
+    } else if (pathname === "/progress") {
+      setActivePage("progress");
     } else if (pathname === "/about") {
       setActivePage("about");
     }
@@ -68,15 +70,26 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             <i className="fa-solid fa-timeline w-7"></i> History
           </li>
         </a>
-        <a href="">
+        <a href="/result-key">
           <li
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "key-result"
+              activePage === "result-key"
                 ? "bg-primary text-white"
                 : "text-black"
             }`}
           >
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Result Key
+          </li>
+        </a>
+        <a href="/progress">
+          <li
+            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
+              activePage === "progress"
+                ? "bg-primary text-white"
+                : "text-black"
+            }`}
+          >
+            <i className="fa-solid fa-square-poll-vertical w-7"></i> Progress
           </li>
         </a>
         <a href="">

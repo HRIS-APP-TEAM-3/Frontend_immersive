@@ -13,10 +13,21 @@ import AddUser from './pages/user/addPersonalData'
 import AddImportantData from './pages/user/addImporttanData'
 import AddEducation from './pages/user/addEducation'
 import Approval from './pages/user/approval/Index'
+import ResultKey from './pages/result/listResult'
+import Progress from './pages/result/progress'
+import Login from './pages/login'
+import ListEmployee from './pages/employee/listEmployee'
+import TimeOff from './pages/timeoff'
+import HistoryTimeOff from './pages/history/TimeOff'
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+      <Route element={<Login/>} path='/'/>
+        <Route element={<ListEmployee/>} path='/listemployee'/>
+        <Route element={<TimeOff/>} path='/timeoff'/>
+        <Route element={<HistoryTimeOff/>} path='/history/timeoff'/>
         <Route element={<Dashboard/>} path='/dashboard'/>
         <Route element={<User/>} path='/user'/>
         <Route element={<AddUser/>} path='/user/adduser'/>
@@ -31,6 +42,8 @@ const App = () => {
         <Route element={<AddEducation/>} path='/user/addeducation'/>
         <Route element={<Approval/>} path='/user/approval'/>
         
+        <Route element={<ResultKey/>} path='/result-key'/>
+        <Route element={<Progress/>} path='/progress'/>
       </Routes>
     </BrowserRouter>
   )
