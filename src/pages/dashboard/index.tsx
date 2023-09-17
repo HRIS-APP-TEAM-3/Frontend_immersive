@@ -14,8 +14,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Line, Doughnut } from "react-chartjs-2";
-import faker from "faker";
-
+import { faker } from "@faker-js/faker";
 const Dashboard = () => {
   ChartJS.register(
     CategoryScale,
