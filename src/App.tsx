@@ -7,17 +7,17 @@ import TakenReimbursement from './pages/employee/reimbursement/reimbursementTake
 import HistoryReimbursement from './pages/history/reimbursement'
 import PersonalData from './pages/employee/personalData'
 import Attandence from './pages/employee/attendence'
-import HistoryAttendence from './pages/history/Attendence'
+import HistoryAttendence from './pages/history/attendence'
 import AddUser from './pages/user/addPersonalData'
 import AddImportantData from './pages/user/addImporttanData'
 import AddEducation from './pages/user/addEducation'
 import Approval from './pages/user/approval/Index'
 import ResultKey from './pages/result/listResult'
 import Progress from './pages/result/progress'
-import Login from './pages/Login'
+import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
-import TimeOff from './pages/employee/timeOff'
-import HistoryTimeOff from './pages/history/timeoff'
+import TimeOff from './pages/history/TimeOff'
+import HistoryTimeOff from './pages/history/TimeOff'
 
 const App = () => {
   return (

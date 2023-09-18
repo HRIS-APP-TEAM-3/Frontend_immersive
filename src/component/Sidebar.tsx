@@ -16,9 +16,25 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
+    } else if (pathname === "/user/adduser") {
+      setActivePage("user");
+    } else if (pathname === "/user/addimportantdata") {
+      setActivePage("user");
+    } else if (pathname === "/user/addeducation") {
+      setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
+    } else if (pathname === "/personaldata") {
+      setActivePage("employee");
+    } else if (pathname === "/attandence") {
+      setActivePage("employee");
+    } else if (pathname === "/timeoff") {
+      setActivePage("employee");
+    } else if (pathname === "/reimbursement") {
+      setActivePage("employee");
     } else if (pathname === "/history") {
+      setActivePage("history");
+    } else if (pathname === "/history/attendence") {
       setActivePage("history");
     } else if (pathname === "/result-key") {
       setActivePage("result-key");
