@@ -15,6 +15,33 @@ import {
 } from "chart.js";
 import { Line, Doughnut } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.4,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
+
 const Dashboard = () => {
   ChartJS.register(
     CategoryScale,
@@ -74,14 +101,20 @@ const Dashboard = () => {
   return (
     <section>
       <div>
-        <Navbar />
-        <div className="bg-white h-[14vh] px-24 flex flex-col py-2.5">
-          <div className="text-3xl font-bold">Welcome to HRIS</div>
-          <div className="text-xs mt-1">It’s Tuesday, 24 November</div>
-        </div>
+        <motion.div variants={animation} animate="visible" initial="hidden">
+          <Navbar />
+        </motion.div>
+        <motion.div variants={animation} animate="visible" initial="hidden" className="bg-white h-[14vh] px-24 flex flex-col py-2.5">
+          <motion.div variants={childAnimation} className="text-3xl font-bold">
+            Welcome to HRIS
+          </motion.div>
+          <motion.div variants={childAnimation} className="text-xs mt-1">
+            It’s Tuesday, 24 November
+          </motion.div>
+        </motion.div>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[68vh]"/>
+        <Sidebar height="h-[68vh]" />
         <div className="w-[80vw] flex flex-col">
           <div className="flex flex-row justify-between mr-10">
             <div className="mx-10 mb-5 flex flex-row place-items-center">
@@ -97,13 +130,16 @@ const Dashboard = () => {
                 <div className="text-[12px]">Leader : Teknis IT</div>
               </div>
             </div>
-            <div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <Button
                 label="Logout"
                 icon={<i className="fa-solid fa-right-from-bracket mr-2"></i>}
                 classname="bg-white text-gray-400 hover:bg-gray-200"
               />
-            </div>
+            </motion.div>
           </div>
           <div className="bg-white mx-10 p-6 rounded-lg ">
             <div className="text-center mb-4 text-[20px] font-semibold">
@@ -164,8 +200,10 @@ const Dashboard = () => {
                 ></progress>
               </div>
               <div className="flex flex-row text-center mx-10 mt-5 place-items-center justify-between">
-                <div className="w-7 h-2 bg-primary"></div> <span className="text-[14px] text-gray-600">Employee</span>
-                <div className="w-7 h-2 bg-secondary"></div> <span className="text-[14px] text-gray-600">Manajer</span>
+                <div className="w-7 h-2 bg-primary"></div>{" "}
+                <span className="text-[14px] text-gray-600">Employee</span>
+                <div className="w-7 h-2 bg-secondary"></div>{" "}
+                <span className="text-[14px] text-gray-600">Manajer</span>
               </div>
             </div>
             <div className="bg-white p-3 rounded-lg w-full h-72 ">

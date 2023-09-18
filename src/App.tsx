@@ -18,29 +18,35 @@ import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/employee/timeOff'
 import HistoryTimeOff from './pages/history/timeoff'
+import About from './pages/about'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
       <Route element={<Login/>} path='/'/>
-        <Route element={<ListEmployee/>} path='/listemployee'/>
-        <Route element={<TimeOff/>} path='/timeoff' />
-        <Route element={<HistoryTimeOff/>} path='/history/timeoff'/>
         <Route element={<Dashboard/>} path='/dashboard'/>
+        <Route element={<About/>} path='/about'/>
+
         <Route element={<User/>} path='/user'/>
         <Route element={<AddUser/>} path='/user/adduser'/>
-        <Route element={<ListReimbursement/>} path='/reimbursement'/>
-        <Route element={<TakenReimbursement/>} path='/reimbursement-taken'/>
-        <Route element={<HistoryReimbursement/>} path='/history/reimbursement'/>
-        <Route element={<PersonalData/>} path='/personaldata'/>
-        <Route element={<Attandence/>} path='/attandence'/>
-        <Route element={<HistoryAttendence/>} path='/history/attendence'/>
         <Route element={<AddImportantData/>} path='/user/addimportantdata'/>
         <Route element={<AddEducation/>} path='/user/addeducation'/>
         <Route element={<Approval/>} path='/user/approval'/>
+
+        <Route element={<ListEmployee/>} path='/listemployee'/>
         <Route element={<ResultKey/>} path='/result-key'/>
         <Route element={<Progress/>} path='/progress'/>
+
+        <Route element={<ListReimbursement/>} path='/reimbursement'/>
+        <Route element={<TakenReimbursement/>} path='/reimbursement-taken'/>
+        <Route element={<PersonalData/>} path='/personaldata'/>
+        <Route element={<Attandence/>} path='/attandence'/>
+        <Route element={<TimeOff/>} path='/timeoff' />
+
+        <Route element={<HistoryTimeOff/>} path='/history/timeoff'/>
+        <Route element={<HistoryReimbursement/>} path='/history/reimbursement'/>
+        <Route element={<HistoryAttendence/>} path='/history/attendence'/>
       </Routes>
     </BrowserRouter>
   )
