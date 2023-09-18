@@ -2,10 +2,22 @@ import { useState } from "react";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
-import Popup from "../../../component/Popup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const HistoryTimeOff = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [popupDetail, setPopupDetail] = useState<boolean>(false);
+
+
+
+    const handleDetail = () => {
+        setPopupDetail(!popupDetail);
+    };
+
+
 
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
@@ -30,7 +42,7 @@ const HistoryTimeOff = () => {
             </div>
         </div>
     );
-
+    
     return (
         <section>
             <div>
@@ -51,6 +63,7 @@ const HistoryTimeOff = () => {
                                     />
                                 </div>
                             </div>
+
                             <div>
                                 <div className="overflow-x-auto mt-4">
                                     <table className="table">
@@ -72,7 +85,14 @@ const HistoryTimeOff = () => {
                                                 <td>CT</td>
                                                 <td>12 Sept</td>
                                                 <td>17 Sept</td>
-                                                <td><img src="./EYE.png" alt="Foto" width="20" height="20" /></td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => handleDetail()}
+                                                        className="hover:outline-none hover:border-white"
+                                                    >
+                                                        <i className="fa-solid fa-eye"></i>
+                                                    </button>
+                                                </td>
                                                 <td>Pending</td>
                                             </tr>
                                             <tr className="border-none">
@@ -81,7 +101,14 @@ const HistoryTimeOff = () => {
                                                 <td>CE</td>
                                                 <td>20 Sept</td>
                                                 <td>25 Sept</td>
-                                                <td><img src="./EYE.png" alt="Foto" width="20" height="20" /></td>
+                                                <td>
+                                                    <button
+                                                        onClick={() => handleDetail()}
+                                                        className="hover:outline-none hover:border-white"
+                                                    >
+                                                        <i className="fa-solid fa-eye"></i>
+                                                    </button>
+                                                </td>
                                                 <td>Approved</td>
                                             </tr>
                                             <tr className="border-none">
@@ -113,10 +140,11 @@ const HistoryTimeOff = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
     );
 };
 
-export default TimeOff;
+export default HistoryTimeOff;

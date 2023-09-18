@@ -1,9 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 
+
 const AddImportantData = () => {
+  const navigate = useNavigate();
+  const handlePreviousClick = () => {
+   
+    navigate('/user/adduser');
+  };
+
+  const handleNextClick = () => {
+ 
+    navigate('/user/addeducation');
+  };
   return (
     <section>
       <div>
@@ -106,15 +118,17 @@ const AddImportantData = () => {
             </div>
             <div className="flex flex-row justify-end gap-2 mt-5">
               <div>
-                <Button
+              <Button
                   label="Previous"
                   classname="bg-primary text-white px-10"
-                />
+                  onClick={handlePreviousClick}
+                />      
               </div>
               <div>
                 <Button
                   label="Next"
                   classname="bg-primary text-white px-10"
+                  onClick={handleNextClick}
                 />
               </div>
             </div>

@@ -17,7 +17,8 @@ import Progress from './pages/result/progress'
 import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/employee/timeOff'
-import HistoryTimeOff from './pages/history/timeoff'
+import HistoryTimeOff from './pages/history/TimeOff'
+import About from './pages/about'
 
 const App = () => {
   return (
