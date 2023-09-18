@@ -18,8 +18,8 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
-    } else if (pathname === "/history") {
-      setActivePage("history");
+    } else if (pathname === "/history/attendence") {
+      setActivePage("history-attendence");
     } else if (pathname === "/result-key") {
       setActivePage("result-key");
     } else if (pathname === "/progress") {
@@ -43,7 +43,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             <i className="fa-solid fa-house w-7"></i> Dashboard
           </li>
         </a>
-        <a href="">
+        <a href="employee">
           <li
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "employee" ? "bg-primary text-white" : "text-black"
@@ -61,10 +61,10 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             <i className="fa-solid fa-user w-7"></i> User
           </li>
         </a>
-        <a href="">
+        <a href="/history/attendence">
           <li
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "history" ? "bg-primary text-white" : "text-black"
+              activePage === "history-attendence" ? "bg-primary text-white" : "text-black"
             }`}
           >
             <i className="fa-solid fa-timeline w-7"></i> History
@@ -92,7 +92,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Progress
           </li>
         </a>
-        <a href="">
+        <a href="/about">
           <li
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "about" ? "bg-primary text-white" : "text-black"
@@ -102,14 +102,14 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
           </li>
         </a>
       </ul>
-      {activePage === "dashboard" ? (
+      {activePage === "" ? (
         ""
       ) : (
         <ul className="p-6 leading-[50px]">
           <a href="">
             <li
               className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-                activePage === "about" ? "bg-primary text-white" : "text-black"
+                activePage === "" ? "bg-primary text-white" : "text-black"
               }`}
             >
               <i className="fa-solid fa-right-from-bracket mr-2 w-7"></i> Logout
