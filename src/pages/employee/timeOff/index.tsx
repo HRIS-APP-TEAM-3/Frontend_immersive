@@ -5,9 +5,11 @@ import Button from "../../../component/Button";
 import Popup from "../../../component/Popup";
 
 const TimeOff = () => {
+
   const [Attandence, setAddAttandence] = useState<boolean>(false);
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
   const [timeOutType, setTimeOutType] = useState('');
+  
   const handleAdd = () => {
     setAddAttandence(!Attandence);
   };
@@ -15,6 +17,7 @@ const TimeOff = () => {
   const handleDetail = () => {
     setPopupDetail(!popupDetail);
   };
+  
   const handleTimeOutChange = (e:any) => {
     const selectedType = e.target.value;
     setTimeOutType(selectedType);
