@@ -7,7 +7,7 @@ import TakenReimbursement from './pages/employee/reimbursement/reimbursementTake
 import HistoryReimbursement from './pages/history/reimbursement'
 import PersonalData from './pages/employee/personalData'
 import Attandence from './pages/employee/attendence'
-import HistoryAttendence from './pages/history/Attendence'
+import HistoryAttendence from './pages/history/attendence'
 import AddUser from './pages/user/addPersonalData'
 import AddImportantData from './pages/user/addImporttanData'
 import AddEducation from './pages/user/addEducation'
@@ -17,7 +17,7 @@ import Progress from './pages/result/progress'
 import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/employee/timeOff'
-import HistoryTimeOff from './pages/history/timeoff'
+import HistoryTimeOff from './pages/history/TimeOff'
 import About from './pages/about'
 
 const App = () => {

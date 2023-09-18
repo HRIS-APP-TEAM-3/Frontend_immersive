@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 
 const AddUser = () => {
+  const navigate = useNavigate();
+  const handlePreviousClick = () => {
+   
+    navigate('/user/adduser');
+  };
+
+  const handleNextClick = () => {
+ 
+    navigate('/user/addimportantdata');
+  };
   return (
     <section>
       <div>
@@ -212,12 +224,14 @@ const AddUser = () => {
                 <Button
                   label="Previous"
                   classname="bg-primary text-white px-10"
-                />
+                  onClick={handlePreviousClick}
+                />      
               </div>
               <div>
                 <Button
                   label="Next"
                   classname="bg-primary text-white px-10"
+                  onClick={handleNextClick}
                 />
               </div>
             </div>
