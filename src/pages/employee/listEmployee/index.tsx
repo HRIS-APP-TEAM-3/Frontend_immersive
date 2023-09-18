@@ -4,7 +4,7 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import InputSearch from "../../../component/InputSearch";
 
-const ListEmployee = () => {
+const Employee = () => {
     return (
         <section>
             <div>
@@ -89,4 +89,4 @@ const ListEmployee = () => {
     );
 };
 
-export default ListEmployee;
+export default Employee;

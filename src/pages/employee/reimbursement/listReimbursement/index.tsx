@@ -138,7 +138,7 @@ const ListReimbursement = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div> 
             <Popup
               isOpen={addReimbursement}
               onClose={() => setAddReimbursement(false)}
@@ -229,7 +229,7 @@ const ListReimbursement = () => {
                 </div>
               </div>
             </Popup>
-          </div>
+          </div>    
           <div>
             <Popup isOpen={popupDetail} onClose={() => setPopupDetail(false)}>
               <div className="flex flex-col px-7 py-5">
