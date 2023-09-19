@@ -2,7 +2,32 @@ import  { useState } from 'react'
 import Navbar from '../../../component/Navbar';
 import Sidebar from '../../../component/Sidebar';
 import Button from '../../../component/Button';
+import { motion } from 'framer-motion'
 
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const PersonalData = () => {
 
@@ -20,8 +45,8 @@ return (
         </div>
         <div className='mt-10 px-10 flex flex-row'>
         <Sidebar height="h-[80vh]"/>
-        <div className="w-[80vw] flex flex-col">
-          <div className="flex flex-row justify-between mr-10">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
             <div className="mx-10 mb-5 flex flex-row place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
@@ -35,7 +60,8 @@ return (
                 <div className="text-[12px]">Leader : Teknis IT</div>
               </div>
             </div>
-          </div>
+          </motion.div>
+          <motion.div variants={childAnimation}>
           <div className="flex flex-row mx-10 ">
             <a href="/personaldata" className="text-gray-500 hover:text-gray-500">
               <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
@@ -106,8 +132,9 @@ return (
                 />
               </div>
             </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
         </div>
     </section>
 

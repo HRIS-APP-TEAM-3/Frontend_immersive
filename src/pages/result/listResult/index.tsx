@@ -5,6 +5,32 @@ import InputSearch from "../../../component/InputSearch";
 import Button from "../../../component/Button";
 import Popup from "../../../component/Popup";
 import Input from "../../../component/Input";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const ListResult = () => {
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
@@ -26,7 +52,10 @@ const ListResult = () => {
             onChange={(e) => handleInputChange(e, inputCount)}
           />
         </div>
-        <button className="hover:border-none hover:outline-none" onClick={() => removeFeature(inputCount)}>
+        <button
+          className="hover:border-none hover:outline-none"
+          onClick={() => removeFeature(inputCount)}
+        >
           <i className="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -68,17 +97,20 @@ const ListResult = () => {
   useEffect(() => {});
 
   return (
-    //Copy here
     <section>
       <div>
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-        <div className="text-3xl mx-10 mb-2">Result Key</div>
-          <div className="bg-white mx-10 p-6 rounded-md ">
-            {/* Sampai Atas Sini */}
+        <motion.div
+          variants={animation}
+          initial="hidden"
+          animate="visible"
+          className="w-[80vw] flex flex-col"
+        >
+          <motion.div variants={childAnimation} className="text-3xl mx-10 mb-2">Result Key</motion.div>
+          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-md ">
             <div className="flex flex-col">
               <div className="flex flex-row justify-between">
                 <div>
@@ -145,6 +177,7 @@ const ListResult = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                       <Button
@@ -159,10 +192,9 @@ const ListResult = () => {
                       />
                     </div>
                   </div>
-                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           <div>
             <Popup isOpen={addResult} onClose={() => setAddResult(false)}>
               <div className="flex flex-col  py-5 min-w-[500px]">
@@ -255,7 +287,7 @@ const ListResult = () => {
               </div>
             </Popup>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
