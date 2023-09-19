@@ -6,9 +6,6 @@ interface SidebarProps {
   height: string
 }
 
-<<<<<<< HEAD
-const Sidebar: FC<SidebarProps> = () => {
-=======
 const animation = {
   hidden: {
     opacity: 0,
@@ -35,7 +32,6 @@ const childAnimation = {
 };
 
 const Sidebar: FC<SidebarProps> = ({height}) => {
->>>>>>> 3ee72780d1104aa68275e2b65be2557201fe8003
   const location = useLocation();
   const [activePage, setActivePage] = useState<string>("");
 
@@ -46,31 +42,10 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
-    } else if (pathname === "/user/adduser") {
-      setActivePage("user");
-    } else if (pathname === "/user/addimportantdata") {
-      setActivePage("user");
-    } else if (pathname === "/user/addeducation") {
-      setActivePage("user");
-    } else if (pathname === "/user/approval") {
-      setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
-<<<<<<< HEAD
-    } else if (pathname === "/attandence") {
-      setActivePage("employee");
-    } else if (pathname === "/personaldata") {
-      setActivePage("employee");
-    } else if (pathname === "/timeoff") {
-      setActivePage("employee");
-    } else if (pathname === "/reimbursement") {
-      setActivePage("employee");  
-    } else if (pathname === "/history") {
-      setActivePage("history");
-=======
     } else if (pathname === "/history/attendence") {
       setActivePage("history-attendace");
->>>>>>> 3ee72780d1104aa68275e2b65be2557201fe8003
     } else if (pathname === "/result-key") {
       setActivePage("result-key");
     } else if (pathname === "/progress") {
@@ -81,18 +56,11 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
   });
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col justify-between w-[20vw] bg-white rounded-lg overflow-y-auto">
-      <ul className="p-6 leading-[50px] ">
-        <a href="/dashboard">
-          <li
-=======
     <motion.div variants={animation} initial='hidden' animate='visible' className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
       <motion.ul variants={childAnimation} className="p-6 leading-[50px] ">
         <a  href="/dashboard">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
->>>>>>> 3ee72780d1104aa68275e2b65be2557201fe8003
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "dashboard"
                 ? "bg-primary text-white"
