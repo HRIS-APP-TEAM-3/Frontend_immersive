@@ -16,7 +16,7 @@ const Input: FC<InputProps> = ({ placeholder, label, type, value, onChange }) =>
         <input
           type={type}
           placeholder={placeholder}
-          className="focus:outline-none w-full "
+          className="focus:outline-none w-full bg-transparent"
           onChange={onChange}
           value={value}
         />

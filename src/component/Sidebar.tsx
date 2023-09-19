@@ -1,9 +1,35 @@
 import React, { useEffect, useState, FC } from "react";
 import { useLocation } from "react-router-dom";
+import { motion } from 'framer-motion'
 
 interface SidebarProps {
   height: string
 }
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const Sidebar: FC<SidebarProps> = ({height}) => {
   const location = useLocation();
@@ -18,8 +44,8 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
-    } else if (pathname === "/history") {
-      setActivePage("history");
+    } else if (pathname === "/history/attendence") {
+      setActivePage("history-attendace");
     } else if (pathname === "/result-key") {
       setActivePage("result-key");
     } else if (pathname === "/progress") {
@@ -30,10 +56,11 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
   });
 
   return (
-    <div className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
-      <ul className="p-6 leading-[50px] ">
-        <a href="/dashboard">
-          <li
+    <motion.div variants={animation} initial='hidden' animate='visible' className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
+      <motion.ul variants={childAnimation} className="p-6 leading-[50px] ">
+        <a  href="/dashboard">
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "dashboard"
                 ? "bg-primary text-white"
@@ -41,37 +68,41 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             }`}
           >
             <i className="fa-solid fa-house w-7"></i> Dashboard
-          </li>
+          </motion.li>
         </a>
         <a href="">
-          <li
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "employee" ? "bg-primary text-white" : "text-black"
             }`}
           >
             <i className="fa-solid fa-user w-7"></i> Employee
-          </li>
+          </motion.li>
         </a>
-        <a href="/user">
-          <li
+        <a  href="/user">
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "user" ? "bg-primary text-white" : "text-black"
             }`}
           >
             <i className="fa-solid fa-user w-7"></i> User
-          </li>
+          </motion.li>
         </a>
-        <a href="">
-          <li
+        <a href="/history/attendence">
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "history" ? "bg-primary text-white" : "text-black"
+              activePage === "history-attendace" ? "bg-primary text-white" : "text-black"
             }`}
           >
             <i className="fa-solid fa-timeline w-7"></i> History
-          </li>
+          </motion.li>
         </a>
         <a href="/result-key">
-          <li
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "result-key"
                 ? "bg-primary text-white"
@@ -79,10 +110,11 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             }`}
           >
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Result Key
-          </li>
+          </motion.li>
         </a>
         <a href="/progress">
-          <li
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "progress"
                 ? "bg-primary text-white"
@@ -90,34 +122,36 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             }`}
           >
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Progress
-          </li>
+          </motion.li>
         </a>
-        <a href="">
-          <li
+        <a href="/about">
+          <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
             className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
               activePage === "about" ? "bg-primary text-white" : "text-black"
             }`}
           >
             <i className="fa-solid fa-circle-info w-7"></i> About
-          </li>
+          </motion.li>
         </a>
-      </ul>
+      </motion.ul>
       {activePage === "dashboard" ? (
         ""
       ) : (
-        <ul className="p-6 leading-[50px]">
+        <motion.ul variants={childAnimation} className="p-6 leading-[50px]">
           <a href="">
-            <li
+            <motion.li whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
               className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-                activePage === "about" ? "bg-primary text-white" : "text-black"
+                activePage === "logout" ? "bg-primary text-white" : "text-black"
               }`}
             >
               <i className="fa-solid fa-right-from-bracket mr-2 w-7"></i> Logout
-            </li>
+            </motion.li>
           </a>
-        </ul>
+        </motion.ul>
       )}
-    </div>
+    </motion.div>
   );
 };
 

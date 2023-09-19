@@ -3,6 +3,32 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 
 const AddImportantData = () => {
@@ -21,9 +47,9 @@ const AddImportantData = () => {
       <div>
         <Navbar />
       </div>
-      <div className="mt-10 px-10 flex flex-row">
+      <motion.div variants={animation} initial='hidden' animate='visible' className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
+        <motion.div variants={childAnimation} className="w-[80vw] flex flex-col">
           <div className="bg-white mx-10 p-6 rounded-lg">
             <div className="flex justify-center">
               <div className="flex flex-col justify-center">
@@ -133,8 +159,8 @@ const AddImportantData = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

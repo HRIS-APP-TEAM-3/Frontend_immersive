@@ -4,6 +4,32 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import Popup from "../../../component/Popup";
 import InputSearch from "../../../component/InputSearch";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const ListReimbursement = () => {
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
@@ -29,8 +55,8 @@ const ListReimbursement = () => {
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="flex flex-row justify-between mr-10">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
             <div className="mx-10 mb-5 flex flex-row place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
@@ -44,7 +70,8 @@ const ListReimbursement = () => {
                 <div className="text-[12px]">Leader : Teknis IT</div>
               </div>
             </div>
-          </div>
+          </motion.div>
+          <motion.div variants={childAnimation}>
           <div className="flex flex-row mx-10 ">
             <a href="/history/attendence" className="text-gray-500 hover:text-gray-500">
               <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
@@ -113,6 +140,7 @@ const ListReimbursement = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                       <Button
@@ -127,10 +155,10 @@ const ListReimbursement = () => {
                       />
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>
+          </motion.div>
           <div>
             <Popup isOpen={popupDetail} onClose={() => setPopupDetail(false)}>
               <div className="flex flex-col px-7 py-5">
@@ -177,7 +205,7 @@ const ListReimbursement = () => {
               </div>
             </Popup>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
