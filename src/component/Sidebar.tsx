@@ -5,7 +5,7 @@ interface SidebarProps {
   height: string
 }
 
-const Sidebar: FC<SidebarProps> = ({height}) => {
+const Sidebar: FC<SidebarProps> = () => {
   const location = useLocation();
   const [activePage, setActivePage] = useState<string>("");
 
@@ -16,8 +16,24 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
+    } else if (pathname === "/user/adduser") {
+      setActivePage("user");
+    } else if (pathname === "/user/addimportantdata") {
+      setActivePage("user");
+    } else if (pathname === "/user/addeducation") {
+      setActivePage("user");
+    } else if (pathname === "/user/approval") {
+      setActivePage("user");
     } else if (pathname === "/employee") {
       setActivePage("employee");
+    } else if (pathname === "/attandence") {
+      setActivePage("employee");
+    } else if (pathname === "/personaldata") {
+      setActivePage("employee");
+    } else if (pathname === "/timeoff") {
+      setActivePage("employee");
+    } else if (pathname === "/reimbursement") {
+      setActivePage("employee");  
     } else if (pathname === "/history") {
       setActivePage("history");
     } else if (pathname === "/result-key") {
@@ -30,7 +46,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
   });
 
   return (
-    <div className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
+    <div className="flex flex-col justify-between w-[20vw] bg-white rounded-lg overflow-y-auto">
       <ul className="p-6 leading-[50px] ">
         <a href="/dashboard">
           <li

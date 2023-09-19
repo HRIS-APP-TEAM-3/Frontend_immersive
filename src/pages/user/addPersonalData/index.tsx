@@ -22,7 +22,7 @@ const AddUser = () => {
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+        <Sidebar height="h-full" />
         <div className="w-[80vw] flex flex-col">
           <div className="bg-white mx-10 p-6 rounded-lg">
             <div className="flex justify-center">
