@@ -1,6 +1,32 @@
 import React from "react";
 import Navbar from "../../component/Navbar";
 import Sidebar from "../../component/Sidebar";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const About = () => {
   return (
@@ -10,8 +36,8 @@ const About = () => {
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="bg-white mx-10 p-6 rounded-lg ">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
             <div className="flex flex-row items-center">
               <div className="w-[40%] relative h-fit">
                 <div className="bg-gray-100 w-[380px] h-[380px] rounded-full absolute bottom-[-40px]"></div>
@@ -71,8 +97,8 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

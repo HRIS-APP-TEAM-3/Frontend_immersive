@@ -3,8 +3,41 @@ import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import InputSearch from "../../../component/InputSearch";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const ListUser = () => {
+  const navigate = useNavigate()
+
+  const handleAddUser = () => {
+    navigate('/user/adduser')
+  }
+
   return (
     <section>
       <div>
@@ -12,13 +45,14 @@ const ListUser = () => {
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="bg-white mx-10 p-6 rounded-lg ">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
             <div className="flex flex-col text-end">
               <div>
                 <Button
                   label="Add User"
                   classname="bg-primary text-white px-10"
+                  onClick={() => handleAddUser()}
                 />
               </div>
               <div className="flex flex-row justify-end mt-3">
@@ -61,6 +95,7 @@ const ListUser = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                         <Button
@@ -75,11 +110,10 @@ const ListUser = () => {
                         />
                     </div>
                   </div>
-                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,10 +1,36 @@
-import React, { FC } from 'react';
+import { AnimatePresence } from "framer-motion";
+import React, { FC } from "react";
+import {motion} from 'framer-motion'
 
 interface PopupProps {
   isOpen: boolean;
   onClose?: React.MouseEventHandler;
   children?: React.ReactNode;
 }
+
+const backdrop = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
+const content = {
+  hidden: {
+    opacity: 0,
+    y: -200,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    originY: 0,
+    transition: {
+      delay: 0.5,
+    },
+  },
+};
 
 const Popup: FC<PopupProps> = ({ isOpen, onClose, children }) => {
   const preference = {
@@ -15,18 +41,25 @@ const Popup: FC<PopupProps> = ({ isOpen, onClose, children }) => {
       ? "bg-white p-4 rounded-md shadow-md grid justify-items-center z-51 overflow-auto max-h-screen"
       : "hidden",
   };
-  
+
   return (
-    <div className={preference.popupOverlay}>
-      <div className={preference.popupContent}>
-        <div onClick={onClose} className="flex justify-end text-end w-full relative">
-          <div className='absolute top-0'>
-            <i className="fa-solid fa-xmark text-red-300 hover:text-red-600"></i>
-          </div>
-        </div>
-        {children}
-      </div>
-    </div>
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div variants={backdrop} exit='hidden' animate='visible' initial='hidden' className={preference.popupOverlay}>
+          <motion.div variants={content} className={preference.popupContent}>
+            <div
+              onClick={onClose}
+              className="flex justify-end text-end w-full relative"
+            >
+              <div className="absolute top-0">
+                <i className="fa-solid fa-xmark text-red-300 hover:text-red-600"></i>
+              </div>
+            </div>
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

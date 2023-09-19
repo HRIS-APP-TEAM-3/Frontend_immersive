@@ -5,6 +5,32 @@ import Button from "../../../component/Button";
 import InputSearch from "../../../component/InputSearch";
 import Input from "../../../component/Input";
 import Popup from "../../../component/Popup";
+import { motion } from "framer-motion";
+
+const animation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      type: "spring",
+      mass: 0.4,
+      damping: 8,
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
 const Progress = () => {
   const [addProgress, setAddProgress] = useState<boolean>(false);
@@ -25,9 +51,9 @@ const Progress = () => {
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="text-3xl mx-10 mb-2">Progress</div>
-          <div className="bg-white mx-10 p-6 rounded-md ">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="text-3xl mx-10 mb-2">Progress</motion.div>
+          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-md ">
             <div className="flex flex-col">
               <div className="flex justify-end">
                 <Button
@@ -72,6 +98,7 @@ const Progress = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                       <Button
@@ -86,11 +113,10 @@ const Progress = () => {
                       />
                     </div>
                   </div>
-                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         <div>
           <Popup isOpen={addProgress} onClose={() => setAddProgress(false)}>
             <div className="flex flex-col  py-5 min-w-[500px]">

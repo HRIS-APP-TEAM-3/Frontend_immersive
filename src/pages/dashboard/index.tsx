@@ -28,7 +28,7 @@ const animation = {
       mass: 0.4,
       damping: 8,
       when: "beforeChildren",
-      staggerChildren: 0.4,
+      staggerChildren: 0.2,
     },
   },
 };
@@ -115,8 +115,8 @@ const Dashboard = () => {
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[68vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="flex flex-row justify-between mr-10">
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
             <div className="mx-10 mb-5 flex flex-row place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
@@ -140,8 +140,8 @@ const Dashboard = () => {
                 classname="bg-white text-gray-400 hover:bg-gray-200"
               />
             </motion.div>
-          </div>
-          <div className="bg-white mx-10 p-6 rounded-lg ">
+          </motion.div>
+          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
             <div className="text-center mb-4 text-[20px] font-semibold">
               Message
             </div>
@@ -173,19 +173,19 @@ const Dashboard = () => {
                 </table>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-3 gap-3 mt-5 mx-10 mb-10">
+          </motion.div>
+          <motion.div variants={childAnimation} className="grid grid-cols-3 gap-3 mt-5 mx-10 mb-10">
             <div className="bg-white p-3 rounded-lg w-full h-72">
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Result Target
               </div>
-              <div className="mx-auto text-center">
+              <motion.div whileHover={{ scale: 1.01 }} className="mx-auto text-center">
                 <Line options={options} data={data} />
-              </div>
+              </motion.div>
             </div>
             <div className="bg-white p-3 rounded-lg w-full h-72">
               <div className="text-center mb-2 text-[16px] font-semibold">
-                Employee Status
+                Job Level
               </div>
               <div className="mx-auto text-center mt-5">
                 <progress
@@ -214,8 +214,8 @@ const Dashboard = () => {
                 <Doughnut data={dataDonuts} options={options} />
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
