@@ -5,6 +5,8 @@ import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -33,6 +35,16 @@ const childAnimation = {
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
 
   const handlePreviousClick = () => {
     navigate('/user/adduser');
@@ -44,12 +56,12 @@ const AddUser = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())} />
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex justify-center">
               <div className="flex flex-col justify-center">
                 <div className="flex justify-between items-center mt-5 max-w-xs">
@@ -136,13 +148,13 @@ const AddUser = () => {
                         <span className="label-text"> Division</span>
                       </label>
                       <select className="select select-bordered bg-transparent">
-                        <option disabled selected>
+                        <option disabled selected className="text-black">
                           Pick one
                         </option>
-                        <option>IT Division</option>
-                        <option>Management</option>
-                        <option>Marketing</option>
-                        <option>Warehouse</option>
+                        <option className="text-black">IT Division</option>
+                        <option className="text-black">Management</option>
+                        <option className="text-black">Marketing</option>
+                        <option className="text-black">Warehouse</option>
                       </select>
                     </div>
                   </div>
@@ -152,11 +164,11 @@ const AddUser = () => {
                         <span className="label-text">Level</span>
                       </label>
                       <select className="select select-bordered bg-transparent">
-                        <option disabled selected>
+                        <option disabled selected className="text-black">
                           Pick one
                         </option>
-                        <option>Leader</option>
-                        <option>Employee</option>
+                        <option className="text-black">Leader</option>
+                        <option className="text-black">Employee</option>
                       </select>
                     </div>
                   </div>
@@ -199,9 +211,6 @@ const AddUser = () => {
                         </label>
                         <label>
                           <input type="checkbox" name="gender" value="female" /> Female
-                        </label>
-                        <label>
-                          <input type="checkbox" name="gender" value="other" /> Other
                         </label>
                       </div>
                     </div>
@@ -248,14 +257,14 @@ const AddUser = () => {
               <div>
                 <Button
                   label="Previous"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   onClick={handlePreviousClick}
                 />      
               </div>
               <div>
                 <Button
                   label="Next"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   onClick={handleNextClick}
                 />
               </div>

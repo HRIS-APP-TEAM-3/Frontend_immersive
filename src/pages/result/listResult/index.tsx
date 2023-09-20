@@ -6,6 +6,8 @@ import Button from "../../../component/Button";
 import Popup from "../../../component/Popup";
 import Input from "../../../component/Input";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -40,6 +42,17 @@ const ListResult = () => {
 
   const [features, setFeatures] = useState<JSX.Element[]>([]);
   const [inputCount, setInputCount] = useState<number>(0);
+
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
 
   // Fungsi untuk menambahkan elemen input ke dalam daftar fitur
   const addFeature = () => {
@@ -99,7 +112,7 @@ const ListResult = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
@@ -109,8 +122,8 @@ const ListResult = () => {
           animate="visible"
           className="w-[80vw] flex flex-col"
         >
-          <motion.div variants={childAnimation} className="text-3xl mx-10 mb-2">Result Key</motion.div>
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-md ">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'text-white': ''} text-3xl mx-10 mb-2`}>Result Key</motion.div>
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col">
               <div className="flex flex-row justify-between">
                 <div>
@@ -118,15 +131,15 @@ const ListResult = () => {
                     <option disabled selected>
                       Result
                     </option>
-                    <option>On Going</option>
-                    <option>On Close</option>
+                    <option className="text-black">On Going</option>
+                    <option className="text-black">On Close</option>
                   </select>
                 </div>
                 <div>
                   <Button
                     label="Add Result"
                     onClick={() => handleAdd()}
-                    classname="bg-primary text-white px-10"
+                    classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   />
                 </div>
               </div>
@@ -136,7 +149,7 @@ const ListResult = () => {
               <div>
                 <div className="overflow-x-auto mt-4">
                   <table className="table ">
-                    <thead className="bg-primary text-white border-none ">
+                    <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                       <tr className="border-none ">
                         <th className="rounded-l-md">No</th>
                         <th>Result Name</th>
@@ -163,12 +176,12 @@ const ListResult = () => {
                         <td>
                           <div className="flex flex-row gap-2">
                             <div>
-                              <a href="" className="text-black">
+                              <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                 <i className="fa-regular fa-pen-to-square"></i>
                               </a>
                             </div>
                             <div>
-                              <a href="" className="text-black">
+                              <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                 <i className="fa-solid fa-trash"></i>
                               </a>
                             </div>
@@ -182,13 +195,13 @@ const ListResult = () => {
                     <div>
                       <Button
                         label="Previous"
-                        classname="bg-[#CACACA] text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname="bg-primary text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-white'} text-white px-10`}
                       />
                     </div>
                   </div>
@@ -254,7 +267,7 @@ const ListResult = () => {
                 <div className="mt-6">
                   <div className="overflow-x-auto">
                     <table className="table">
-                      <thead className="bg-primary text-white border-none ">
+                      <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                         <tr className="border-none ">
                           <th className="rounded-l-md">Feature</th>
                           <th>Employee</th>

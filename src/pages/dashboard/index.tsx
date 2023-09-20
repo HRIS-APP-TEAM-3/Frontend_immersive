@@ -16,6 +16,9 @@ import {
 import { Line, Doughnut } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../features/modeSlice";
+import Personal from "../../component/Personal";
 
 const animation = {
   hidden: {
@@ -43,6 +46,18 @@ const childAnimation = {
 };
 
 const Dashboard = () => {
+
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -102,9 +117,9 @@ const Dashboard = () => {
     <section>
       <div>
         <motion.div variants={animation} animate="visible" initial="hidden">
-          <Navbar />
+          <Navbar onClick={() => dispatch(toggleMode())} />
         </motion.div>
-        <motion.div variants={animation} animate="visible" initial="hidden" className="bg-white h-[14vh] px-24 flex flex-col py-2.5">
+        <motion.div variants={animation} animate="visible" initial="hidden" className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} h-[14vh] px-24 flex flex-col py-2.5`}>
           <motion.div variants={childAnimation} className="text-3xl font-bold">
             Welcome to HRIS
           </motion.div>
@@ -116,39 +131,15 @@ const Dashboard = () => {
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[68vh]" />
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
-              </div>
-            </div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Button
-                label="Logout"
-                icon={<i className="fa-solid fa-right-from-bracket mr-2"></i>}
-                classname="bg-white text-gray-400 hover:bg-gray-200"
-              />
-            </motion.div>
-          </motion.div>
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
+          <Personal />
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="text-center mb-4 text-[20px] font-semibold">
               Message
             </div>
             <div className="overflow-x-auto">
               <div className="overflow-x-auto">
                 <table className="table">
-                  <thead className="bg-primary text-white border-none ">
+                  <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                     <tr className="border-none ">
                       <th className="rounded-l-md"></th>
                       <th>Name</th>
@@ -175,7 +166,7 @@ const Dashboard = () => {
             </div>
           </motion.div>
           <motion.div variants={childAnimation} className="grid grid-cols-3 gap-3 mt-5 mx-10 mb-10">
-            <div className="bg-white p-3 rounded-lg w-full h-72">
+            <div className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} p-3 rounded-lg w-full h-72`}>
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Result Target
               </div>
@@ -183,7 +174,7 @@ const Dashboard = () => {
                 <Line options={options} data={data} />
               </motion.div>
             </div>
-            <div className="bg-white p-3 rounded-lg w-full h-72">
+            <div className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} p-3 rounded-lg w-full h-72`}>
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Job Level
               </div>
@@ -206,7 +197,7 @@ const Dashboard = () => {
                 <span className="text-[14px] text-gray-600">Manajer</span>
               </div>
             </div>
-            <div className="bg-white p-3 rounded-lg w-full h-72 ">
+            <div className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} p-3 rounded-lg w-full h-72`}>
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Gender Diversity
               </div>

@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../../component/Navbar";
 import Sidebar from "../../component/Sidebar";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -29,18 +31,29 @@ const childAnimation = {
 };
 
 const About = () => {
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-row items-center">
               <div className="w-[40%] relative h-fit">
-                <div className="bg-gray-100 w-[380px] h-[380px] rounded-full absolute bottom-[-40px]"></div>
+                <div className={`${mode === true ? 'bg-dark-button' : 'bg-gray-100'} w-[380px] h-[380px] rounded-full absolute bottom-[-40px]`}></div>
                 <div className="flex justify-end relative">
                   <img
                     src="../../../public/company.jpg"

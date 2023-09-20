@@ -6,6 +6,12 @@ import Popup from "../../../../component/Popup";
 import Input from "../../../../component/Input";
 import { motion } from "framer-motion";
 
+import data from "../../../../../public/dummy/reimbursement.json";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import { toggleMode } from "../../../../features/modeSlice";
+import Personal from "../../../../component/Personal";
+import TopCard from "../../../../component/TopCard";
+
 const animation = {
   hidden: {
     opacity: 0,
@@ -34,6 +40,16 @@ const childAnimation = {
 const ListReimbursement = () => {
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
   const [addReimbursement, setAddReimbursement] = useState<boolean>(false);
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
 
   const handleAdd = () => {
     setAddReimbursement(!addReimbursement);
@@ -46,128 +62,100 @@ const ListReimbursement = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())} />
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div
           variants={animation}
           initial="hidden"
-          animate="visible" className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
-              </div>
-            </div>
-          </motion.div>
+          animate="visible"
+          className="w-[80vw] flex flex-col"
+        >
+          <Personal/>
           <motion.div variants={childAnimation}>
-          <div className="flex flex-row mx-10 ">
-            <a href="/personaldata" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Personal Data
-              </div>
-            </a>
-            <a href="/attandence" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Attendance
-              </div>
-            </a>
-            <a href="/timeoff" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Time Off
-              </div>
-            </a>
-            <a href="/reimbursement" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-white  px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Reimbursement
-              </div>
-            </a>
-          </div>
-          <div className="bg-white mx-10 p-6 rounded-b-lg rounded-tr-lg ">
-            <div className="flex flex-col">
-              <div className="text-end">
-                <Button
-                  label="Request Reimbursement"
-                  classname="bg-primary text-white"
-                  onClick={() => handleAdd()}
-                />
-              </div>
-              <div className="flex flex-row justify-center gap-10">
-                <a href="/reimbursement">Reimbursement Request</a>
-                <div>|</div>
-                <a href="/reimbursement-taken">Reimbursement Taken</a>
-              </div>
-              <div>
-                <div className="overflow-x-auto mt-4">
-                  <table className="table ">
-                    <thead className="bg-primary text-white border-none ">
-                      <tr className="border-none ">
-                        <th className="rounded-l-md">Transaction ID</th>
-                        <th>Reimbursement</th>
-                        <th>Created At</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                        <th className="rounded-r-md">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="border-none">
-                      <tr className="border-none">
-                        <td>2123141421231</td>
-                        <td>Medical Check</td>
-                        <td>12 Sept</td>
-                        <td>
-                          <button
-                            onClick={() => handleDetail()}
-                            className="hover:outline-none hover:border-white"
-                          >
-                            <i className="fa-solid fa-eye"></i>
-                          </button>
-                        </td>
-                        <td>Pending</td>
-                        <td>
-                          <div className="flex flex-row gap-2">
-                            <div>
-                              <a href="" className="text-black">
-                                <i className="fa-regular fa-pen-to-square"></i>
-                              </a>
-                            </div>
-                            <div>
-                              <a href="" className="text-black">
-                                <i className="fa-solid fa-trash"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <TopCard />
+            <div className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
+              <div className="flex flex-col">
+                <div className="text-end">
+                  <Button
+                    label="Request Reimbursement"
+                    classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
+                    onClick={() => handleAdd()}
+                  />
+                </div>
+                <div className="flex flex-row justify-center gap-10">
+                  <a href="/reimbursement" className={mode === true ? 'text-white hover:text-white' : ''}>Reimbursement Request</a>
+                  <div>|</div>
+                  <a href="/reimbursement-taken" className={mode === true ? 'text-white hover:text-white' : ''}>Reimbursement Taken</a>
+                </div>
+                <div>
+                  <div className="overflow-x-auto mt-4">
+                    <table className="table ">
+                      <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
+                        <tr className="border-none ">
+                          <th className="rounded-l-md">Transaction ID</th>
+                          <th>Reimbursement</th>
+                          <th>Created At</th>
+                          <th>Detail</th>
+                          <th>Status</th>
+                          <th className="rounded-r-md">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="border-none">
+                        {data &&
+                          data.map((item, index) => {
+                            return (
+                              <tr className="border-none" key={index}>
+                                <td>{item.transaction_id}</td>
+                                <td>{item.benefit_name}</td>
+                                <td>{item.created_at}</td>
+                                <td>
+                                  <button
+                                    onClick={() => handleDetail()}
+                                    className="hover:outline-none hover:border-white"
+                                  >
+                                    <i className="fa-solid fa-eye"></i>
+                                  </button>
+                                </td>
+                                <td>Pending</td>
+                                <td >
+                                  <div className="flex flex-row gap-2">
+                                    <div>
+                                      <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
+                                        <i className="fa-regular fa-pen-to-square"></i>
+                                      </a>
+                                    </div>
+                                    <div>
+                                      <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
+                                        <i className="fa-solid fa-trash"></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                       <Button
                         label="Previous"
-                        classname="bg-[#CACACA] text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname="bg-primary text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </motion.div>
           <div>
             <Popup
@@ -216,7 +204,7 @@ const ListReimbursement = () => {
                     </label>
                     <input
                       type="file"
-                      className="file-input file-input-primary file-input-md bg-transparent"
+                      className={`file-input ${mode === true ? 'bg-black' : 'file-input-primary'} file-input-md bg-transparent`}
                     />
                   </div>
                 </div>
@@ -226,7 +214,7 @@ const ListReimbursement = () => {
                   </label>
                   <div className="overflow-x-auto">
                     <table className="table">
-                      <thead className="bg-primary text-white border-none ">
+                      <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                         <tr className="border-none ">
                           <th className="rounded-l-md">Benefit Name</th>
                           <th>Request Ammount</th>
@@ -236,19 +224,22 @@ const ListReimbursement = () => {
                       <tbody className="border-none px-0">
                         <tr className="border-none">
                           <td>
-                            <select className="select select-bordered bg-transparent focus:border-none">
-                              <option disabled selected>
+                            <select className={`  select select-bordered bg-transparent focus:border-none`}>
+                              <option disabled selected className={mode === true ? 'text-black' : ''}>
                                 Select Benefit --
                               </option>
-                              <option>Rawat Inap</option>
-                              <option>Rawat Jalan</option>
+                              <option className={mode === true ? 'text-black' : ''}>Rawat Inap</option>
+                              <option className={mode === true ? 'text-black' : ''}>Rawat Jalan</option>
                             </select>
                           </td>
                           <td>
-                            <Input placeholder="Input Amount" type="number"/>
+                            <Input placeholder="Input Amount" type="number" />
                           </td>
                           <td>
-                            <Input placeholder="Input Description" type="text"/>
+                            <Input
+                              placeholder="Input Description"
+                              type="text"
+                            />
                           </td>
                         </tr>
                       </tbody>
@@ -256,7 +247,10 @@ const ListReimbursement = () => {
                   </div>
                 </div>
                 <div className="mt-8">
-                    <Button label="Next" classname="bg-primary text-white w-full"/>
+                  <Button
+                    label="Next"
+                    classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white w-full`}
+                  />
                 </div>
               </div>
             </Popup>
@@ -283,7 +277,7 @@ const ListReimbursement = () => {
                     <div>
                       File Attached :{" "}
                       <span>
-                        <a href="">
+                        <a href="" className={mode === true ? 'text-white': ''}>
                           <i className="fa-solid fa-folder"></i>
                         </a>
                       </span>
