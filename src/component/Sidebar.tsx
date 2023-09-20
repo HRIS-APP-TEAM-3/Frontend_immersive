@@ -46,7 +46,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
-    } else if (pathname === "/employee") {
+    } else if (pathname === "/listemployee") {
       setActivePage("employee");
     } else if (pathname === "/history/attendence") {
       setActivePage("history-attendace");
@@ -70,7 +70,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
             <i className="fa-solid fa-house w-7"></i> Dashboard
           </motion.li>
         </a>
-        <a href="">
+        <a href="/listemployee">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
               className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'employee' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}

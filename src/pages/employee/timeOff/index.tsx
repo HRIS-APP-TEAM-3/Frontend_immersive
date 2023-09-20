@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
@@ -8,6 +9,7 @@ import TopCard from "../../../component/TopCard";
 import Personal from "../../../component/Personal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
+import Input from "../../../component/Input";
 
 const animation = {
   hidden: {
@@ -35,7 +37,7 @@ const childAnimation = {
 };
 
 const TimeOff = () => {
-  const [Attandence, setAddAttandence] = useState<boolean>(false);
+  const [timeOff, setAddTimeOff] = useState<boolean>(false);
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
   const [timeOutType, setTimeOutType] = useState("");
 
@@ -43,7 +45,7 @@ const TimeOff = () => {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    setAddAttandence(!Attandence);
+    setAddTimeOff(!timeOff);
   };
 
   const handleDetail = () => {
@@ -57,7 +59,7 @@ const TimeOff = () => {
 
   const body = document.body
 
-  if(mode === true){
+  if (mode === true) {
     body.style.backgroundColor = '#313338';
   } else {
     body.style.backgroundColor = '#F2F2F2';
@@ -66,7 +68,7 @@ const TimeOff = () => {
   return (
     <section>
       <div>
-        <Navbar onClick={() => dispatch(toggleMode())}/>
+        <Navbar onClick={() => dispatch(toggleMode())} />
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
@@ -76,9 +78,9 @@ const TimeOff = () => {
           animate="visible"
           className="w-[80vw] flex flex-col"
         >
-          <Personal/>
+          <Personal />
           <motion.div variants={childAnimation}>
-            <TopCard/>
+            <TopCard />
             <div className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`} >
               <div className="flex flex-col">
                 <div className="text-end">
@@ -108,8 +110,8 @@ const TimeOff = () => {
                           <td>1</td>
                           <td>15 September</td>
                           <td>CT</td>
-                          <td>08:00</td>
-                          <td>16:00</td>
+                          <td>12 Sept</td>
+                          <td>17 Sept</td>
                           <td>
                             <button
                               onClick={() => handleDetail()}
@@ -156,10 +158,10 @@ const TimeOff = () => {
             </div>
           </motion.div>
           <div>
-            <Popup isOpen={Attandence} onClose={() => setAddAttandence(false)}>
+            <Popup isOpen={timeOff} onClose={() => setAddTimeOff(false)}>
               <div className="flex flex-col px-7 py-5">
                 <div className="text-center text-[24px] font-semibold">
-                  Attandence
+                  TimeOff
                 </div>
                 <div className="flex flex-row gap-5 mt-3">
                   <div className="w-full">
@@ -221,11 +223,31 @@ const TimeOff = () => {
                     </div>
                   </div>
                 </div>
+                <div className="w-full my-5 ">
+                  <label className="label">
+                    <span className="label-text">Notes</span>
+                  </label>
+                  <Input placeholder="Text Here" />
+                </div>
                 <div className="mt-8">
                   <Button
                     label="Next"
                     classname="bg-primary text-white w-full"
                   />
+                </div>
+              </div>
+            </Popup>
+          </div>
+          <div>
+            <Popup isOpen={popupDetail} onClose={() => setPopupDetail(false)}>
+              <div className="flex flex-col px-7 py-5">
+                <div className="text-center text-[24px] font-semibold">
+                  Notes
+                </div>
+                <div className="mt-4 leading-7">
+                  <div className="">
+                    <Input placeholder="Text Here .." />
+                  </div>
                 </div>
               </div>
             </Popup>
