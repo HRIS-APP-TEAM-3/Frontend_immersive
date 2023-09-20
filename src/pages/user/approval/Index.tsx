@@ -72,17 +72,17 @@ const Approval: React.FC = () => {
               />
             </div>
             <div className="flex items-center justify-center mx-auto">
-              {data &&
-                data.map((item, index) => (
-                  <Card
-                    key={index}
-                    Name={item.Name}
-                    TypeApproval={item.Approvaltype} 
-                    TypeRequest={item.RequestType}  
-                    Status={item.status}
-                    
-                  />                 
-                ))}                
+            {data &&
+              data.map((item, index) => (
+                <Card
+                  key={index}
+                  Name={item.Name}
+                  TypeApproval={item.Approvaltype} 
+                  TypeRequest={item.RequestType}  
+                  Status={item.status}
+                />
+              ))}
+             
             </div>
                   
             <div className="flex flex-row justify-end gap-2 mt-5">
