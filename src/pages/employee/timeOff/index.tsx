@@ -94,7 +94,7 @@ const TimeOff = () => {
                 className="text-gray-500 hover:text-gray-500"
               >
                 <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Attendance
+                  TimeOff
                 </div>
               </a>
               <a href="/timeoff" className="text-gray-500 hover:text-gray-500">
