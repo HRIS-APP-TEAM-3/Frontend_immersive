@@ -37,6 +37,7 @@ const childAnimation = {
 const Attandence = () => {
   const [Attandence, setAddAttandence] = useState<boolean>(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
 

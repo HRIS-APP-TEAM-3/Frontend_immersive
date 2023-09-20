@@ -3,18 +3,18 @@ import React from 'react';
 const Login = () => {
   return (
     <div className="relative min-h-screen">
-      {/* Latar belakang warna */}
+      
       <div className="absolute inset-0 bg-blue-200"></div>
-      {/* Gambar latar belakang */}
+      
       <img
         src="./assets/BG.png"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      {/* Konten login */}
+      
       <div className="relative z-10 flex justify-center items-center h-screen">
         <form className="bg-transparent shadow-none rounded px-8 pt-6 pb-8 mb-4">
-          {/* Form login */}
+          
           <img src="./logo.png" alt="Logo HRIS" height='50px' width='200px' className="mx-auto mb-4" /> {/* Menampilkan gambar logo HRIS */}
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
