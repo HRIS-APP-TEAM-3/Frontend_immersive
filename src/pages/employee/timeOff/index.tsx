@@ -4,6 +4,10 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import Popup from "../../../component/Popup";
 import { motion } from "framer-motion";
+import TopCard from "../../../component/TopCard";
+import Personal from "../../../component/Personal";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -35,6 +39,9 @@ const TimeOff = () => {
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
   const [timeOutType, setTimeOutType] = useState("");
 
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
   const handleAdd = () => {
     setAddAttandence(!Attandence);
   };
@@ -48,10 +55,18 @@ const TimeOff = () => {
     setTimeOutType(selectedType);
   };
 
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
@@ -61,69 +76,22 @@ const TimeOff = () => {
           animate="visible"
           className="w-[80vw] flex flex-col"
         >
-          <motion.div
-            variants={childAnimation}
-            className="flex flex-row justify-between mr-10"
-          >
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
-              </div>
-            </div>
-          </motion.div>
+          <Personal/>
           <motion.div variants={childAnimation}>
-            <div className="flex flex-row mx-10">
-              <a
-                href="/personaldata"
-                className="text-gray-500 hover:text-gray-500"
-              >
-                <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Personal Data
-                </div>
-              </a>
-              <a
-                href="/attandence"
-                className="text-gray-500 hover:text-gray-500"
-              >
-                <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Attendance
-                </div>
-              </a>
-              <a href="/timeoff" className="text-gray-500 hover:text-gray-500">
-                <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Time Off
-                </div>
-              </a>
-              <a
-                href="/reimbursement"
-                className="text-gray-500 hover:text-gray-500"
-              >
-                <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Reimbursement
-                </div>
-              </a>
-            </div>
-            <div className="bg-white mx-10 p-6 rounded-b-lg rounded-tr-lg">
+            <TopCard/>
+            <div className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`} >
               <div className="flex flex-col">
                 <div className="text-end">
                   <Button
                     label="Request Timeoff"
-                    classname="bg-primary text-white"
+                    classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
                     onClick={() => handleAdd()}
                   />
                 </div>
                 <div>
                   <div className="overflow-x-auto mt-4">
                     <table className="table">
-                      <thead className="bg-primary text-white border-none">
+                      <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                         <tr className="border-none">
                           <th className="rounded-l-md">No</th>
                           <th>Created At</th>
@@ -154,12 +122,12 @@ const TimeOff = () => {
                           <td>
                             <div className="flex flex-row gap-2">
                               <div>
-                                <a href="" className="text-black">
+                                <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                   <i className="fa-regular fa-pen-to-square"></i>
                                 </a>
                               </div>
                               <div>
-                                <a href="" className="text-black">
+                                <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                   <i className="fa-solid fa-trash"></i>
                                 </a>
                               </div>
@@ -172,13 +140,13 @@ const TimeOff = () => {
                       <div>
                         <Button
                           label="Previous"
-                          classname="bg-[#CACACA] text-white px-10"
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                         />
                       </div>
                       <div>
                         <Button
                           label="Next"
-                          classname="bg-primary text-white px-10"
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                         />
                       </div>
                     </div>

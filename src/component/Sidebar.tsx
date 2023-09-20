@@ -1,6 +1,7 @@
 import React, { useEffect, useState, FC } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from 'framer-motion'
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
 interface SidebarProps {
   height: string
@@ -35,6 +36,9 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
   const location = useLocation();
   const [activePage, setActivePage] = useState<string>("");
 
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const pathname = location.pathname;
 
@@ -56,16 +60,12 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
   });
 
   return (
-    <motion.div variants={animation} initial='hidden' animate='visible' className={`flex flex-col justify-between w-[20vw] bg-white rounded-lg ${height}`}>
+    <motion.div variants={animation} initial='hidden' animate='visible' className={`${mode === true ? 'bg-[#2b2d31]' : 'bg-white'} flex flex-col justify-between w-[20vw]  rounded-lg ${height}`}>
       <motion.ul variants={childAnimation} className="p-6 leading-[50px] ">
         <a  href="/dashboard">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "dashboard"
-                ? "bg-primary text-white"
-                : "text-black"
-            }`}
+            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'dashboard' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-house w-7"></i> Dashboard
           </motion.li>
@@ -73,9 +73,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a href="">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "employee" ? "bg-primary text-white" : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'employee' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-user w-7"></i> Employee
           </motion.li>
@@ -83,9 +81,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a  href="/user">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "user" ? "bg-primary text-white" : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'user' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-user w-7"></i> User
           </motion.li>
@@ -93,9 +89,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a href="/history/attendence">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "history-attendace" ? "bg-primary text-white" : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'history-attendace' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-timeline w-7"></i> History
           </motion.li>
@@ -103,11 +97,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a href="/result-key">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "result-key"
-                ? "bg-primary text-white"
-                : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'result-key' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Result Key
           </motion.li>
@@ -115,11 +105,7 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a href="/progress">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "progress"
-                ? "bg-primary text-white"
-                : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'progress' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-square-poll-vertical w-7"></i> Progress
           </motion.li>
@@ -127,24 +113,20 @@ const Sidebar: FC<SidebarProps> = ({height}) => {
         <a href="/about">
           <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-            className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-              activePage === "about" ? "bg-primary text-white" : "text-black"
-            }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'about' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
           >
             <i className="fa-solid fa-circle-info w-7"></i> About
           </motion.li>
         </a>
       </motion.ul>
-      {activePage === "dashboard" ? (
+      {activePage === "logout" ? (
         ""
       ) : (
         <motion.ul variants={childAnimation} className="p-6 leading-[50px]">
           <a href="">
             <motion.li whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 hover:bg-primary hover:text-white ${
-                activePage === "logout" ? "bg-primary text-white" : "text-black"
-              }`}
+              className={`px-4 mb-2 rounded-md transition ease-in-out duration-400 ${activePage === 'logout' ? `${mode === true ? 'bg-white text-black' : 'bg-primary text-white'}` : `${mode === true ? 'text-white' : 'text-black'}`}`}
             >
               <i className="fa-solid fa-right-from-bracket mr-2 w-7"></i> Logout
             </motion.li>

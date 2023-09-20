@@ -5,6 +5,10 @@ import Button from "../../../../component/Button";
 import Popup from "../../../../component/Popup";
 import Input from "../../../../component/Input";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../../features/modeSlice";
+import Personal from "../../../../component/Personal";
+import TopCard from "../../../../component/TopCard";
 
 const animation = {
   hidden: {
@@ -35,6 +39,8 @@ const childAnimation = {
 const ReimbursementTaken = () => {
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
   const [addReimbursement, setAddReimbursement] = useState<boolean>(false);
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
 
   const handleAdd = () => {
     setAddReimbursement(!addReimbursement);
@@ -44,10 +50,19 @@ const ReimbursementTaken = () => {
     setPopupDetail(!popupDetail);
   };
 
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
+
   return (
     <section>
       <div>
-        <Navbar />
+      <Navbar onClick={() => dispatch(toggleMode())} />
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
@@ -55,55 +70,20 @@ const ReimbursementTaken = () => {
           variants={animation}
           initial="hidden"
           animate="visible" className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
-              </div>
-            </div>
-          </motion.div>
+          <Personal/>
           <motion.div variants={childAnimation}>
-          <div className="flex flex-row mx-10 ">
-            <a href="" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Personal Data
-              </div>
-            </a>
-            <a href="" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Attendance
-              </div>
-            </a>
-            <a href="" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Time Off
-              </div>
-            </a>
-            <a href="/reimbursement" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Reimbursement
-              </div>
-            </a>
-          </div>
-          <div className="bg-white mx-10 p-6 rounded-b-lg rounded-tr-lg ">
+          <TopCard />
+          <div className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col">
               <div className="flex flex-row justify-center gap-10">
-                <a href="/reimbursement">Reimbursement Request</a>
+                <a href="/reimbursement" className={mode === true ? 'text-white hover:text-white' : ''}>Reimbursement Request</a>
                 <div>|</div>
-                <a href="/reimbursement-taken">Reimbursement Taken</a>
+                <a href="/reimbursement-taken" className={mode === true ? 'text-white hover:text-white' : ''}>Reimbursement Taken</a>
               </div>
               <div>
                 <div className="overflow-x-auto mt-4">
                   <table className="table ">
-                    <thead className="bg-primary text-white border-none ">
+                    <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                       <tr className="border-none ">
                         <th className="rounded-l-md">Reimbursement Name</th>
                         <th>Detail</th>
@@ -127,21 +107,21 @@ const ReimbursementTaken = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   <div className="flex flex-row justify-end gap-2 mt-5">
                     <div>
                       <Button
                         label="Previous"
-                        classname="bg-[#CACACA] text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname="bg-primary text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                       />
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>

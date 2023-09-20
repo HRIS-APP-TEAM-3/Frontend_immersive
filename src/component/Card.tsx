@@ -121,7 +121,6 @@ const Card: FC<CardProps> = ({ Name, TypeApproval, TypeRequest, Status, onClick 
                   <div className="text-[12px]">Request Reimbursement  </div>
                 </div>
               </div>
-             
             <div className="flex flex-row gap-5 mt-3">
               <div className="w-full">
                 <div className="form-control w-full max-w-xs ">

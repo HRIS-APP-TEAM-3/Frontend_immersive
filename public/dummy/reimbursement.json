@@ -1,0 +1,53 @@
+[
+    {
+        "user_id": {
+            "id": 2,
+            "name": "Sul"
+        },
+        "transaction_id": 1231231,
+        "benefit_name": "Medical Checkup",
+        "notes": "Melakukan Checkup",
+        "lead_approval": 0,
+        "hr_approval": 0,
+        "request_amount": 100000,
+        "paid_amount": 100000,
+        "file_name": "denaisdasd",
+        "created_at": "2021-01-01 00:00:00",
+        "updated_at": "2021-01-01 00:00:00",
+        "deleted_at": "2021-01-01 00:00:00"
+    },
+    {
+        "user_id": {
+            "id": 2,
+            "name": "Denson"
+        },
+        "transaction_id": 1231231,
+        "benefit_name": "Medical Checkup",
+        "notes": "Melakukan Checkup",
+        "lead_approval": 0,
+        "hr_approval": 0,
+        "request_amount": 100000,
+        "paid_amount": 100000,
+        "file_name": "denaisdasd",
+        "created_at": "2021-01-01 00:00:00",
+        "updated_at": "2021-01-01 00:00:00",
+        "deleted_at": "2021-01-01 00:00:00"
+    },
+    {
+        "user_id": {
+            "id": 3,
+            "name": "Anggun"
+        },
+        "transaction_id": 1231231,
+        "benefit_name": "Medical Checkup",
+        "notes": "Melakukan Checkup",
+        "lead_approval": 0,
+        "hr_approval": 0,
+        "request_amount": 100000,
+        "paid_amount": 100000,
+        "file_name": "denaisdasd",
+        "created_at": "2021-01-01 00:00:00",
+        "updated_at": "2021-01-01 00:00:00",
+        "deleted_at": "2021-01-01 00:00:00"
+    }
+]

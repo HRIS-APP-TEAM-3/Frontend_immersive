@@ -4,6 +4,8 @@ import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -33,6 +35,17 @@ const childAnimation = {
 
 const AddImportantData = () => {
   const navigate = useNavigate();
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
   const handlePreviousClick = () => {
    
     navigate('/user/adduser');
@@ -45,12 +58,12 @@ const AddImportantData = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <motion.div variants={animation} initial='hidden' animate='visible' className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div variants={childAnimation} className="w-[80vw] flex flex-col">
-          <div className="bg-white mx-10 p-6 rounded-lg">
+          <div className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex justify-center">
               <div className="flex flex-col justify-center">
                 <div className="flex justify-between items-center mt-5 max-w-xs">
@@ -146,14 +159,14 @@ const AddImportantData = () => {
               <div>
               <Button
                   label="Previous"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   onClick={handlePreviousClick}
                 />      
               </div>
               <div>
                 <Button
                   label="Next"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   onClick={handleNextClick}
                 />
               </div>

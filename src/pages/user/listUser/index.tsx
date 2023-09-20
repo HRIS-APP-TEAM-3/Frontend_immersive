@@ -5,6 +5,8 @@ import Button from "../../../component/Button";
 import InputSearch from "../../../component/InputSearch";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -33,6 +35,16 @@ const childAnimation = {
 
 const ListUser = () => {
   const navigate = useNavigate()
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
 
   const handleAddUser = () => {
     navigate('/user/adduser')
@@ -41,17 +53,17 @@ const ListUser = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-lg ">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col text-end">
               <div>
                 <Button
                   label="Add User"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                   onClick={() => handleAddUser()}
                 />
               </div>
@@ -61,7 +73,7 @@ const ListUser = () => {
               <div>
                 <div className="overflow-x-auto mt-4">
                   <table className="table ">
-                    <thead className="bg-primary text-white border-none ">
+                    <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                       <tr className="border-none ">
                         <th className="rounded-l-md">No</th>
                         <th>Name</th>
@@ -81,12 +93,12 @@ const ListUser = () => {
                         <td>
                           <div className="flex flex-row gap-2">
                             <div >
-                              <a href="" className="text-black">
+                              <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                 <i className="fa-regular fa-pen-to-square"></i>
                               </a>
                             </div>
                             <div>
-                              <a href="" className="text-black">
+                              <a href="" className={mode === true ? 'text-white hover:text-white' : 'text-black'}>
                                 <i className="fa-solid fa-trash"></i>
                               </a>
                             </div>
@@ -100,13 +112,13 @@ const ListUser = () => {
                     <div>
                         <Button
                           label="Previous"
-                          classname="bg-primary text-white px-10"
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                         />
                     </div>
                     <div>
                         <Button
                           label="Next"
-                          classname="bg-primary text-white px-10"
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                         />
                     </div>
                   </div>

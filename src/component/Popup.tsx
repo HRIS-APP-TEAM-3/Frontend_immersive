@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React, { FC } from "react";
 import {motion} from 'framer-motion'
+import { useSelector } from "react-redux";
 
 interface PopupProps {
   isOpen: boolean;
@@ -33,14 +34,18 @@ const content = {
 };
 
 const Popup: FC<PopupProps> = ({ isOpen, onClose, children }) => {
+
+  const mode = useSelector((state: any) => state.mode.mode);
+
   const preference = {
     popupOverlay: isOpen
       ? "fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
       : "hidden",
     popupContent: isOpen
-      ? "bg-white p-4 rounded-md shadow-md grid justify-items-center z-51 overflow-auto max-h-screen"
+      ? `${mode === true ? 'bg-dark text-white' : 'bg-white'}  p-4 rounded-md shadow-md grid justify-items-center z-51 overflow-auto max-h-screen`
       : "hidden",
   };
+
 
   return (
     <AnimatePresence mode="wait">

@@ -9,10 +9,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-
   color: #000;
-  
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -71,4 +68,30 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.switch {
+  width: 50px;
+  background-color: #E0E0E0;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 50px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.switch[data-isOn="true"] {
+  justify-content: flex-end;
+  background-color: white;
+}
+
+.switch[data-isOn="true"] .handle {
+  background-color: #000;
+}
+
+.handle {
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 40px;
 }
