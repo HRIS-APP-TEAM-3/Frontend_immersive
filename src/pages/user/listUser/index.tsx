@@ -55,19 +55,21 @@ const ListUser = () => {
       <div>
         <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
-      <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="mt-10 px-10 flex flex-row ">
+      <div className="hidden sm:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
           <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
-            <div className="flex flex-col text-end">
-              <div>
+            <div className="flex flex-col text-end ">
+              <div className="grid  justify-items-center sm:flex flex-col text-end">
                 <Button
                   label="Add User"
-                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-2 items-center`}
                   onClick={() => handleAddUser()}
                 />
               </div>
-              <div className="flex flex-row justify-end mt-3">
+              <div className="grid  justify-items-start min-w-12 sm:flex flex-row justify-end mt-3">
                 <InputSearch placeholder="Search User" />
               </div>
               <div>
@@ -108,17 +110,17 @@ const ListUser = () => {
                     </tbody>
                   </table>
                 </div>
-                  <div className="flex flex-row justify-end gap-2 mt-5">
+                  <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                         <Button
                           label="Previous"
-                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-2 sm:px-10`}
                         />
                     </div>
                     <div>
                         <Button
                           label="Next"
-                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+                          classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-2 sm:px-10`}
                         />
                     </div>
                   </div>

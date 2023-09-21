@@ -48,11 +48,13 @@ const About = () => {
         <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
           <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-row items-center">
-              <div className="w-[40%] relative h-fit">
+              <div className="hidden md:block w-[40%] relative h-fit">
                 <div className={`${mode === true ? 'bg-dark-button' : 'bg-gray-100'} w-[380px] h-[380px] rounded-full absolute bottom-[-40px]`}></div>
                 <div className="flex justify-end relative">
                   <img
@@ -69,7 +71,7 @@ const About = () => {
                   />
                 </div>
               </div>
-              <div className="w-[60%] px-5">
+              <div className="grid grid-cols-1 gap-4 justify-center mx-auto md:w-[60%] px-5">
                 <div className="text-primary font-semibold">About Company</div>
                 <div className="text-3xl font-semibold mt-3">
                   HRIS (Human Resource Information System)

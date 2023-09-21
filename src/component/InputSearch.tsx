@@ -8,8 +8,8 @@ interface InputSearchProps {
 const InputSearch: FC<InputSearchProps> = ({ placeholder }) => {
   return (
     <motion.div whileHover={{ scale: 1.02 }}
-    transition={{ type: "spring", stiffness: 300 }} className="border-solid border-[1px] border-outline px-5 py-2 rounded-2xl w-60">
-      <i className="fa-solid fa-magnifying-glass text-[#BDBDBD] mr-2 text-[14px]"></i>
+    transition={{ type: "spring", stiffness: 300 }} className="border-solid border-[1px] border-outline px-2 py-1 rounded-2xl w-15 sm:px-5 py-2 rounded-2xl w-60">
+      <i className="fa-solid fa-magnifying-glass text-[#BDBDBD] sm:mr-2 text-[14px]"></i>
       <input
         type="text"
         placeholder={placeholder}
