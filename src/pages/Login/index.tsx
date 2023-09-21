@@ -54,7 +54,7 @@ const Login = () => {
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="relative z-10 flex justify-center items-center h-screen">
-        <div className="bg-transparent shadow-none rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-transparent shadow-none rounded px-4 sm:px-8 pt-6 pb-8 mb-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4">
           <img
             src="./logo.png"
             alt="Logo HRIS"
@@ -96,7 +96,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center md:justify-between">
             <Button
               label="Login"
               classname="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
