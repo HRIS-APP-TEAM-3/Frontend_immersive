@@ -46,6 +46,8 @@ const Sidebar: FC<SidebarProps> = ({ height }) => {
 
   const handleLogout = () => {
     Cookie.remove("token");
+    localStorage.removeItem('formDataPersonal')
+    localStorage.removeItem('formDataImportant')
 
     Swal.fire({
       title: "Logout",
@@ -68,9 +70,9 @@ const Sidebar: FC<SidebarProps> = ({ height }) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
-    } else if (pathname === "/listemployee") {
+    } else if (pathname === "/listemployee" || pathname === "/personaldata" || pathname === "/attandence" || pathname === '/timeoff' || pathname === '/reimbursement') {
       setActivePage("employee");
-    } else if (pathname === "/history/attendence") {
+    } else if (pathname === "/history/attendence" || pathname === "/history/timeoff" || pathname === "/history/reimbursement") {
       setActivePage("history-attendace");
     } else if (pathname === "/result-key") {
       setActivePage("result-key");
@@ -112,7 +114,7 @@ const Sidebar: FC<SidebarProps> = ({ height }) => {
             <i className="fa-solid fa-house w-7"></i> Dashboard
           </motion.li>
         </a>
-        <a href="">
+        <a href='/personaldata'>
           <motion.li
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -133,7 +135,7 @@ const Sidebar: FC<SidebarProps> = ({ height }) => {
             <i className="fa-solid fa-user w-7"></i> Employee
           </motion.li>
         </a>
-        {role === "Employee" ? (
+        {role === "Employee" || role === "Manager" ? (
           ""
         ) : (
           <a href="/user">

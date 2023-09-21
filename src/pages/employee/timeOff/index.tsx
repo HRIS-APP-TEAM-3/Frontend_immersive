@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
@@ -10,6 +10,8 @@ import Personal from "../../../component/Personal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
 import Input from "../../../component/Input";
+import Cookie from 'js-cookie'
+import axios from "axios";
 
 const animation = {
   hidden: {
@@ -43,6 +45,25 @@ const TimeOff = () => {
 
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
+  const token = Cookie.get('token')
+
+  const [data, setData] = useState<any>([])
+  console.log(data);
+  
+
+  const getData = () => {
+    axios.get(`https://node.backendlagi.online/leave`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      setData(res?.data?.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   const handleAdd = () => {
     setAddTimeOff(!timeOff);
@@ -64,6 +85,10 @@ const TimeOff = () => {
   } else {
     body.style.backgroundColor = '#F2F2F2';
   }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <section>

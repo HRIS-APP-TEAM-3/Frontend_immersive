@@ -134,6 +134,7 @@ const AddUser = () => {
     formDataPersonal.append("religion", religion);
     formDataPersonal.append("file", file);
     formDataPersonal.append("address", address);
+    formDataPersonal.append("user_lead_id", userLeadId);
 
     const formDataString = JSON.stringify(
       Object.fromEntries(formDataPersonal.entries())

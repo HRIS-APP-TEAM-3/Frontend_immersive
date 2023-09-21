@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 
 const animation = {
   hidden: {
@@ -35,19 +35,19 @@ const childAnimation = {
 
 const AddEducation = () => {
   const navigate = useNavigate();
-  const token = Cookie.get('token')
+  const token = Cookie.get("token");
 
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
 
-  //Data 
-  const [name, setName] = useState<string>('')
-  const [startYear, setStartYear] = useState<number>(0)
-  const [graduateYear, setGraduateYear] = useState<number>(0)
-  const personalData = JSON.parse(localStorage.getItem('formDataPersonal'))
-  const importantData = JSON.parse(localStorage.getItem('formDataImportant'))
-  const merge = {...personalData, ...importantData}
-
+  //Data
+  const [name, setName] = useState<string>("");
+  const [startYear, setStartYear] = useState<number>(0);
+  const [graduateYear, setGraduateYear] = useState<number>(0);
+  const personalData = JSON.parse(localStorage.getItem("formDataPersonal"));
+  const importantData = JSON.parse(localStorage.getItem("formDataImportant"));
+  const merge = { ...personalData, ...importantData };
+  
   const body = document.body;
 
   if (mode === true) {
@@ -60,31 +60,61 @@ const AddEducation = () => {
     navigate("/user/addimportantdata");
   };
 
-  const content = {
-    'first_name': personalData.firstName,
-    'profile_photo': personalData.file,
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append('educationName', name);
-    // formData.append('startYear', startYear);
-    // formData.append('graduateYear', graduateYear);
-    
+  
+    const formData = new FormData();
+  
+    formData.append('first_name', personalData.firstName);
+    formData.append('last_name', personalData.lastName);
+    formData.append('email', personalData.email);
+    formData.append('phone_number', personalData.phone);
+    formData.append('address', personalData.address);
+    formData.append('profile_photo', personalData.file);
+    formData.append('user_lead_id', parseInt(personalData.user_lead_id));
+    formData.append('role_id', parseInt(personalData.level));
+    formData.append('division_id', parseInt(personalData.division));
+  
+    // Objek user_important_data
+    const userImportantData = {
+      birth_place: personalData.birthdayPlace,
+      birth_date: personalData.birthday,
+      emergency_name: importantData.emergencyName,
+      emergency_status: importantData.emergencyStatus,
+      emergency_phone: importantData.emergencyContact,
+      npwp: importantData.npwp,
+      bpjs: importantData.bpjs,
+      religion: personalData.religion,
+      gender: personalData.gender,
+    };
+  
+    formData.append('user_important_data', JSON.stringify(userImportantData));
+  
+    // Array user_education_data
+    const userEducationData = [
+      {
+        name: name,
+        start_year: startYear,
+        graduate_year: graduateYear,
+      },
+    ];
+  
+    formData.append('user_education_data', JSON.stringify(userEducationData));
+  
     // try {
-    //   const responseData = await axios.post('/users', formData), {
+    //   const responseData = await axios.post('/users', formData, {
     //     headers: {
-    //       Authorization: `Bearer ${token}`
-            
+    //       Authorization: `Bearer ${token}`,
     //     },
-    //   }
-    // } catch(error) {
-    //   console.log(error)
+    //   });
+    //   localStorage.removeItem('formDataPersonal');
+    //   localStorage.removeItem('formDataImportant');
+    //   // Lakukan sesuatu dengan responseData jika diperlukan
+    // } catch (error) {
+    //   console.log(error);
     // }
-  }
-
+  };
+  
 
   return (
     <section>
