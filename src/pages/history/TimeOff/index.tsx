@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+import Input from "../../../component/Input";
+import Popup from "../../../component/Popup";
 
 const animation = {
   hidden: {
@@ -182,12 +184,12 @@ const HistoryTimeOff = () => {
                         <td>25 Sept</td>
                         <td>30 Sept</td>
                         <td>
-                          <img
-                            src="./EYE.png"
-                            alt="Foto"
-                            width="20"
-                            height="20"
-                          />
+                          <button
+                            onClick={() => handleDetail()}
+                            className="hover:outline-none hover:border-white"
+                          >
+                            <i className="fa-solid fa-eye"></i>
+                          </button>
                         </td>
                         <td>Rejected</td>
                       </tr>
@@ -210,6 +212,20 @@ const HistoryTimeOff = () => {
                   </div>
               </div>
             </div>
+            <div>
+            <Popup isOpen={popupDetail} onClose={() => setPopupDetail(false)}>
+              <div className="flex flex-col px-7 py-5">
+                <div className="text-center text-[24px] font-semibold">
+                  Notes
+                </div>
+                <div className="mt-4 leading-7">
+                  <div className="">
+                    <Input placeholder="Text Here .." />
+                  </div>
+                </div>
+              </div>
+            </Popup>
+          </div>
           </div>
           </motion.div>
         </motion.div>

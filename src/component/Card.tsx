@@ -25,7 +25,7 @@ const Card: FC<CardProps> = ({ Name, TypeApproval, TypeRequest, Status, onEyeCli
           </label>
           <button
             onClick={onEyeClick} 
-            className="bg-white hover:outline-none hover:border-white"
+            className=" hover:outline-none hover:border-white bg-transparent"
           >
             <i className="fa-solid fa-eye"></i>
           </button>

@@ -6,6 +6,8 @@ import InputSearch from "../../../component/InputSearch";
 import Input from "../../../component/Input";
 import Popup from "../../../component/Popup";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -36,6 +38,17 @@ const Progress = () => {
   const [addProgress, setAddProgress] = useState<boolean>(false);
   const [editProgress, setEditProgress] = useState<boolean>(false);
 
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
+
   const addProgressEmployee = () => {
     setAddProgress(!addProgress);
   };
@@ -47,18 +60,18 @@ const Progress = () => {
   return (
     <section>
       <div>
-        <Navbar />
+        <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="text-3xl mx-10 mb-2">Progress</motion.div>
-          <motion.div variants={childAnimation} className="bg-white mx-10 p-6 rounded-md ">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'text-white' : ''} text-3xl mx-10 mb-2`}>Progress</motion.div>
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col">
               <div className="flex justify-end">
                 <Button
                   label="Add Progress"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
                   onClick={() => addProgressEmployee()}
                 />
               </div>
@@ -68,7 +81,7 @@ const Progress = () => {
               <div>
                 <div className="overflow-x-auto mt-4">
                   <table className="table ">
-                    <thead className="bg-primary text-white border-none ">
+                    <thead className={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white border-none`}>
                       <tr className="border-none ">
                         <th className="rounded-l-md">No</th>
                         <th>Employee</th>
@@ -88,10 +101,10 @@ const Progress = () => {
                         <td>
                           <div className="flex flex-row gap-2">
                             <div>
-                              <Button classname="text-black hover:border-transparent p-0 focus:outline-transparent" onClick={() => editProgressEmployee()} icon={<i className="fa-regular fa-pen-to-square"></i>}/>
+                              <Button classname={`${mode === true ? 'text-white' : 'text-black'} hover:border-transparent p-0 focus:outline-transparent`} onClick={() => editProgressEmployee()} icon={<i className="fa-regular fa-pen-to-square"></i>}/>
                             </div>
                             <div>
-                              <Button classname="text-black hover:border-transparent p-0 focus:outline-transparent" onClick={() => editProgressEmployee()} icon={<i className="fa-solid fa-trash"></i>}/>
+                              <Button classname={`${mode === true ? 'text-white' : 'text-black'} hover:border-transparent p-0 focus:outline-transparent`} onClick={() => editProgressEmployee()} icon={<i className="fa-solid fa-trash"></i>}/>
                             </div>
                           </div>
                         </td>
@@ -103,13 +116,13 @@ const Progress = () => {
                     <div>
                       <Button
                         label="Previous"
-                        classname="bg-[#CACACA] text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname="bg-primary text-white px-10"
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
                       />
                     </div>
                   </div>
@@ -131,8 +144,8 @@ const Progress = () => {
                       <option disabled selected>
                         -- Select Result Key --
                       </option>
-                      <option>Build Hris App</option>
-                      <option>Coin</option>
+                      <option className="text-black">Build Hris App</option>
+                      <option className="text-black">Coin</option>
                     </select>
                   </div>
                 </div>
@@ -143,15 +156,15 @@ const Progress = () => {
                       <option disabled selected>
                         -- Select Feature --
                       </option>
-                      <option>Login</option>
-                      <option>Regis</option>
+                      <option className="text-black">Login</option>
+                      <option className="text-black">Regis</option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
             <div className="mt-8 w-full">
-              <Button label="Submit" classname="bg-primary text-white w-full" />
+              <Button label="Submit" classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white w-full`} />
             </div>
           </Popup>
         </div>
@@ -178,7 +191,7 @@ const Progress = () => {
               </div>
             </div>
             <div className="mt-3 w-full">
-              <Button label="Submit" classname="bg-primary text-white w-full" />
+              <Button label="Submit" classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white w-full`} />
             </div>
           </Popup>
         </div>

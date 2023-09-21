@@ -4,6 +4,37 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import Card from "../../../component/Card";
 import Popup from "../../../component/Popup";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
+
+
+const animation = {
+  hidden: {
+      opacity: 0,
+  },
+  visible: {
+      opacity: 1,
+      transition: {
+          type: "spring",
+          mass: 0.4,
+          damping: 8,
+          when: "beforeChildren",
+          staggerChildren: 0.2,
+      },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+      opacity: 0,
+  },
+  visible: {
+      opacity: 1,
+  },
+};
+
 
 interface DataItem {
   Name: string;
@@ -12,10 +43,23 @@ interface DataItem {
   status: string;
   
 }
-const Approval: React.FC = () => {
+const Approval= () => {
   const [data, setData] = useState<DataItem[]>([]);
   const [isTimeoffPopupOpen, setTimeoffPopupOpen] = useState<boolean>(false);
   const [isReimbursementPopupOpen, setReimbursementPopupOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate()
+
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if (mode === true) {
+      body.style.backgroundColor = '#313338';
+  } else {
+      body.style.backgroundColor = '#F2F2F2';
+  }
 
   const handleEyeClick = (type: string) => {
     if (type === "Request Time Off") {
@@ -50,20 +94,21 @@ const Approval: React.FC = () => {
   return (
     <section>
       <div>
-        <Navbar />
+      <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="bg-white mx-10 p-6 rounded-lg">
+        
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex gap-5 justify-center">
               <Button
                 label="Approval Request"
-                classname="bg-primary text-white px-10"
+                classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
               />
               <Button
                 label="Reject Request"
-                classname="bg-primary text-white px-10"
+                classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
               />
             </div>
             <div className="flex items-center justify-center mx-auto">
@@ -83,18 +128,18 @@ const Approval: React.FC = () => {
               <div>
                 <Button
                   label="Previous"
-                  classname="bg-[#CACACA] text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                 />
               </div>
               <div>
                 <Button
                   label="Next"
-                  classname="bg-primary text-white px-10"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
                 />
               </div>
             </div>
-          </div>
-        </div>
+            </motion.div>
+                </motion.div>
       </div>
       <Popup isOpen={isTimeoffPopupOpen} onClose={() => setTimeoffPopupOpen(false)}>
       <div className="flex flex-col px-7 py-5 ml-12">
