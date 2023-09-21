@@ -68,7 +68,7 @@ const Sidebar: FC<SidebarProps> = ({ height }) => {
       setActivePage("dashboard");
     } else if (pathname === "/user") {
       setActivePage("user");
-    } else if (pathname === "/employee") {
+    } else if (pathname === "/listemployee") {
       setActivePage("employee");
     } else if (pathname === "/history/attendence") {
       setActivePage("history-attendace");

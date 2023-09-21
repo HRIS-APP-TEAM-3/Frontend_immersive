@@ -14,14 +14,20 @@ import AddEducation from './pages/user/addEducation'
 import Approval from './pages/user/approval/Index'
 import ResultKey from './pages/result/listResult'
 import Progress from './pages/result/progress'
-import Login from './pages/Login'
+import Login from './pages/login'
 import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/employee/timeOff'
 import HistoryTimeOff from './pages/history/TimeOff'
 import About from './pages/about'
+
 import UpdateUser from './pages/user/update/addPersonalData'
 import UpdateImportantData from './pages/user/update/addImporttanData'
 import UpdateEducation from './pages/user/update/addEducation'
+
+import EduEmployee from './pages/employee/eduEmployee'
+import PersonalEmployee from './pages/employee/personalEmployee'
+import ImportantEmployee from './pages/employee/impoEmployee'
+
 
 const App = () => {
 
@@ -47,6 +53,9 @@ const App = () => {
         <Route element={<Approval/>} path='/user/approval'/>
 
         <Route element={<ListEmployee/>} path='/listemployee'/>
+        <Route element={<PersonalEmployee/>} path='/employee/personalemployee'/>
+        <Route element={<ImportantEmployee/>} path='/employee/importantemployee'/>
+        <Route element={<EduEmployee/>} path='/employee/eduemployee'/>
         <Route element={<ResultKey/>} path='/result-key'/>
         <Route element={<Progress/>} path='/progress'/>
 
