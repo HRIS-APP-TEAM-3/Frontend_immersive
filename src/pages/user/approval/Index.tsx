@@ -4,18 +4,73 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import Card from "../../../component/Card";
 import Popup from "../../../component/Popup";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
+
+
+const animation = {
+  hidden: {
+      opacity: 0,
+  },
+  visible: {
+      opacity: 1,
+      transition: {
+          type: "spring",
+          mass: 0.4,
+          damping: 8,
+          when: "beforeChildren",
+          staggerChildren: 0.2,
+      },
+  },
+};
+
+const childAnimation = {
+  hidden: {
+      opacity: 0,
+  },
+  visible: {
+      opacity: 1,
+  },
+};
+
 
 interface DataItem {
   Name: string;
   Approvaltype: string;
   RequestType: string;
   status: string;
+  
 }
-
-const Approval: React.FC = () => {
+const Approval= () => {
   const [data, setData] = useState<DataItem[]>([]);
+  const [isTimeoffPopupOpen, setTimeoffPopupOpen] = useState<boolean>(false);
+  const [isReimbursementPopupOpen, setReimbursementPopupOpen] = useState<boolean>(false);
 
-  // Data dummy
+  const navigate = useNavigate()
+
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if (mode === true) {
+      body.style.backgroundColor = '#313338';
+  } else {
+      body.style.backgroundColor = '#F2F2F2';
+  }
+
+  const handleEyeClick = (type: string) => {
+    if (type === "Request Time Off") {
+      setTimeoffPopupOpen(true);
+      setReimbursementPopupOpen(false);
+    } else if (type === "Request Reimbusment") {
+      setTimeoffPopupOpen(false);
+      setReimbursementPopupOpen(true);
+    }
+  };
+
   const dummyData: DataItem[] = [
     {
       Name: "Diska Genteng ",
@@ -29,39 +84,177 @@ const Approval: React.FC = () => {
       RequestType: "For Perjalanan Keluar Planet",
       status: "Pending",
     },
-    // Tambahkan data lainnya sesuai kebutuhan
+  
   ];
 
-  // Mengatur data dummy ke state data
   useEffect(() => {
     setData(dummyData);
-  }, []); // Empty dependency array to run this effect only once
+  }, []); 
 
   return (
     <section>
       <div>
-        <Navbar />
+      <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
         <Sidebar height="h-[80vh]" />
-        <div className="w-[80vw] flex flex-col">
-          <div className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
+        
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
+            <div className="flex gap-5 justify-center">
+              <Button
+                label="Approval Request"
+                classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+              />
+              <Button
+                label="Reject Request"
+                classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+              />
+            </div>
+            <div className="flex items-center justify-center mx-auto">
+              {data &&
+                data.map((item, index) => (
+                  <Card
+                    key={index}
+                    Name={item.Name}
+                    TypeApproval={item.Approvaltype}
+                    TypeRequest={item.RequestType}
+                    Status={item.status}
+                    onEyeClick={() => handleEyeClick(item.Approvaltype)}
+                  />
+                ))}
+            </div>
+            <div className="flex flex-row justify-end gap-2 mt-5">
+              <div>
+                <Button
+                  label="Previous"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
                 />
               </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
+              <div>
+                <Button
+                  label="Next"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-10`}
+                />
               </div>
             </div>
-          </div>
-          <div className="bg-white mx-10 p-6 rounded-lg">
-            <div className="flex gap-5 justify-center">
+            </motion.div>
+                </motion.div>
+      </div>
+      <Popup isOpen={isTimeoffPopupOpen} onClose={() => setTimeoffPopupOpen(false)}>
+      <div className="flex flex-col px-7 py-5 ml-12">
+              <div className="text-center text-[24px] font-semibold">
+                Timeoff Detail
+              </div>
+
+              <div className="flex flex-row gap-1 mt-3">
+                <div className="w-10 h-10 rounded-full bg-gray-200">
+                  <img src="" alt="" className="object-cover" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-[18px] font-semibold">Denson Patibang</div>
+                  <div className="text-[12px]">Request Time Off</div>
+                </div>
+              </div>
+
+              <div className="flex flex-row gap-5 mt-3">
+                <div className="w-full">
+                  <div className="form-control w-full max-w-xs">
+                    <ul className="list-disc">
+                      <li>
+                        Diska would like to request time off CT at this date: Sun,
+                        September 10 2023 until Mon, September 11 2023
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                  <ul className="list-disc">
+                    <li>Time Off Policy : Cuti Tahunan</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                  <ul className="list-disc">
+                    <li>Time Off Requested : 2 days</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                  <ul className="list-disc">
+                    <li>Remaining balance : 8 days</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="flex gap-5 justify-center mt-10">
+                <Button label="Approval Request" classname="bg-primary text-white px-10" />
+                <Button label="Reject Request" classname="bg-primary text-white px-10" />
+              </div>
+            </div>
+      </Popup>
+      <Popup isOpen={isReimbursementPopupOpen} onClose={() => setReimbursementPopupOpen(false)}>
+      <div className="flex  flex-col px-7 py-5 ml-12">
+            <div className="text-center text-[24px] font-semibold">
+            Reimbursement Detail
+            </div>           
+            
+            <div className="flex flex-row gap-1 mt-3 ">
+                <div className="w-10 h-10 rounded-full bg-gray-200  ">
+                  <img src="" alt="" className="object-cover" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-[18px] font-semibold">Denson Patibang</div>
+                  <div className="text-[12px]">Request Reimbursement  </div>
+                </div>
+              </div>
+             
+            <div className="flex flex-row gap-5 mt-3">
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs ">
+                <ul className="list-disc">
+                  <li>Transaction ID : 2023090002</li>                
+                </ul>
+                </div>               
+              </div>
+            </div> 
+
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                <ul className="list-disc">
+                  <li>Reimbusment Name : Medical Claim</li>                
+                </ul>
+              </div>
+              </div>
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                <ul className="list-disc">
+                  <li>Reimbusment Date : 10 September 2023</li>                
+                </ul>
+              </div>
+              </div>
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                <ul className="list-disc">
+                  <li>Amount : 9.000.0000</li>                
+                </ul>
+              </div>
+              </div>
+              <div className="w-full">
+                <div className="form-control w-full max-w-xs">
+                <ul className="list-disc">
+                  <li>Notes : </li>                
+                </ul>
+              </div>
+              </div>
+              <div className="flex gap-5 justify-center mt-10">
               <Button
                 label="Approval Request"
                 classname="bg-primary text-white px-10"
@@ -71,45 +264,10 @@ const Approval: React.FC = () => {
                 classname="bg-primary text-white px-10"
               />
             </div>
-            <div className="flex items-center justify-center mx-auto">
-            {data &&
-              data.map((item, index) => (
-                <Card
-                  key={index}
-                  Name={item.Name}
-                  TypeApproval={item.Approvaltype} 
-                  TypeRequest={item.RequestType}  
-                  Status={item.status}
-                />
-              ))}
-             
-            </div>
-                  
-            <div className="flex flex-row justify-end gap-2 mt-5">
-              <div>
-                <Button
-                  label="Previous"
-                  classname="bg-[#CACACA] text-white px-10"
-                />
-              </div>
-              <div>
-                <Button
-                  label="Next"
-                  classname="bg-primary text-white px-10"
-                />
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
+      </Popup>
     </section>
   );
 };
 
 export default Approval;
-
-
-
-
-
-

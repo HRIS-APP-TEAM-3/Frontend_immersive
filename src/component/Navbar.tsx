@@ -57,7 +57,7 @@ const Navbar: FC<NavbarProps> = ({ onClick }) => {
           animate={{ originX: 0, originY: 0 }}
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
-          href="#"
+          href="/user/approval"
         >
           <div className="mr-4">
             <i className="fa-solid fa-envelope text-[#BDBDBD] text-xl hover:text-[#A2A2A2]"></i>
