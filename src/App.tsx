@@ -19,8 +19,12 @@ import ListEmployee from './pages/employee/listEmployee'
 import TimeOff from './pages/employee/timeOff'
 import HistoryTimeOff from './pages/history/TimeOff'
 import About from './pages/about'
+import UpdateUser from './pages/user/update/addPersonalData'
+import UpdateImportantData from './pages/user/update/addImporttanData'
+import UpdateEducation from './pages/user/update/addEducation'
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <Routes>
@@ -29,9 +33,17 @@ const App = () => {
         <Route element={<About/>} path='/about'/>
 
         <Route element={<User/>} path='/user'/>
+
+        {/* ADD */}
         <Route element={<AddUser/>} path='/user/adduser'/>
         <Route element={<AddImportantData/>} path='/user/addimportantdata'/>
         <Route element={<AddEducation/>} path='/user/addeducation'/>
+
+        {/* Update */}
+        <Route element={<UpdateUser/>} path='/user/update-adduser/:id'/>
+        <Route element={<UpdateImportantData/>} path='/user/update-addimportantdata/:id'/>
+        <Route element={<UpdateEducation/>} path='/user/update-addeducation/:id'/>
+
         <Route element={<Approval/>} path='/user/approval'/>
 
         <Route element={<ListEmployee/>} path='/listemployee'/>

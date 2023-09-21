@@ -6,15 +6,17 @@ interface ButtonProps {
   classname?: string;
   icon?: ReactNode;
   onClick?: React.MouseEventHandler;
+  type?: string;
 }
 
-const Button: FC<ButtonProps> = ({ label, classname, icon, onClick }) => {
+const Button: FC<ButtonProps> = ({ label, classname, icon, onClick, type }) => {
   return (
     <div>
       <motion.button
         whileHover={{ scale: 1.02}}
         transition={{ type: "spring", stiffness: 300 , originX:0}}
         onClick={onClick}
+        type={type}
         className={`${
           classname ? `${classname}` : "text-white"
         } hover:border-inherit focus:outline-inherit`}
