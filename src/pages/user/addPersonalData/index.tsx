@@ -178,7 +178,7 @@ const AddUser = () => {
             } mx-10 p-6 rounded-b-lg rounded-tr-lg`}
           >
             <div className="flex justify-center">
-              <div className="flex flex-col justify-center">
+              <div className="hidden md:flex flex-col justify-center">
                 <div className="flex justify-between items-center mt-5 max-w-xs">
                   <div className="w-10 h-10 bg-blue-500 rounded-full flex justify-center items-center text-white font-bold">
                     1

@@ -115,7 +115,9 @@ const ListResult = () => {
         <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>  
         <motion.div
           variants={animation}
           initial="hidden"
@@ -125,9 +127,9 @@ const ListResult = () => {
           <motion.div variants={childAnimation} className={`${mode === true ? 'text-white': ''} text-3xl mx-10 mb-2`}>Result Key</motion.div>
           <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col">
-              <div className="flex flex-row justify-between">
+              <div className="grid grid-cols-1 gap-4 grid justify-items-center md:flex flex-row justify-between">
                 <div>
-                  <select className="select select-bordered w-64 max-w-xs bg-transparent focus:border-none">
+                  <select className="select select-bordered w-40 max-w-xs bg-transparent focus:border-none">
                     <option disabled selected>
                       Result
                     </option>
@@ -135,7 +137,7 @@ const ListResult = () => {
                     <option className="text-black">On Close</option>
                   </select>
                 </div>
-                <div>
+                <div className="my-5">
                   <Button
                     label="Add Result"
                     onClick={() => handleAdd()}
@@ -143,7 +145,7 @@ const ListResult = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end mt-3">
+              <div className="grid justify-items-center md:flex justify-end mt-3">
                 <InputSearch placeholder="Search Result" />
               </div>
               <div>
@@ -191,17 +193,17 @@ const ListResult = () => {
                     </tbody>
                   </table>
                 </div>
-                  <div className="flex flex-row justify-end gap-2 mt-5">
+                  <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                       <Button
                         label="Previous"
-                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-10`}
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-2 md:px-10`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname={`${mode === true ? 'bg-dark-button' : 'bg-white'} text-white px-10`}
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-2 md:px-10`}
                       />
                     </div>
                   </div>

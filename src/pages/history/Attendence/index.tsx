@@ -4,6 +4,9 @@ import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
 import InputSearch from "../../../component/InputSearch";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -32,9 +35,25 @@ const childAnimation = {
 
 const Attendance = () => {
   const [today, setToday] = useState<string>("");
+  const navigate = useNavigate();
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+
+  const body = document.body
+
+  if(mode === true){
+    body.style.backgroundColor = '#313338';
+  } else {
+    body.style.backgroundColor = '#F2F2F2';
+  }
 
   const handleToday = () => {
     setToday(new Date().toISOString().slice(0, 10));
+  };
+
+  const handleNextClick = () => {
+ 
+    navigate('/history/timeoff');
   };
 
   useEffect(() => {
@@ -47,7 +66,9 @@ const Attendance = () => {
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div
           variants={animation}
           initial="hidden"
@@ -58,7 +79,7 @@ const Attendance = () => {
             variants={childAnimation}
             className="flex flex-row justify-between mr-10"
           >
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
+            <div className="flex flex-row ml-8 md:mx-10 mb-5  place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
                   src="../../../public/logo.png"
@@ -73,7 +94,7 @@ const Attendance = () => {
             </div>
           </motion.div>
           <motion.div variants={childAnimation}>
-            <div className="flex flex-row mx-10 ">
+            <div className=" flex flex-row mx-10 ">
               <a
                 href="/history/attendence"
                 className="text-gray-500 hover:text-gray-500"
@@ -82,26 +103,34 @@ const Attendance = () => {
                   Attendance
                 </div>
               </a>
+              <div className="md:hidden">
+                <Button
+                  label="Next"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-gray-300'} text-white px-2 md:px-10`}
+                  onClick={handleNextClick}
+                />
+              </div>
               <a
                 href="/history/timeoff"
                 className="text-gray-500 hover:text-gray-500"
               >
-                <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Time Off
+                <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+                  TimeOff
                 </div>
               </a>
               <a
                 href="/history/reimbursement"
-                className="text-gray-500 hover:text-gray-500"
+                className=" text-gray-500 hover:text-gray-500"
               >
-                <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                  Reimbursement
+                <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+                Reimbursement
                 </div>
+
               </a>
             </div>
             <div className="bg-white mx-10 p-6 rounded-b-lg rounded-tr-lg ">
               <div className="flex flex-col">
-                <div className="flex flex-row justify-between">
+                <div className="grid grid-cols-1 gap-4 justify-center mx-auto md:flex flex-row justify-between">
                   <div>
                     <div className="form-control w-full max-w-xs">
                       <input
@@ -143,17 +172,17 @@ const Attendance = () => {
                       </tbody>
                     </table>
                   </div>
-                    <div className="flex flex-row justify-end gap-2 mt-5">
+                    <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                       <div>
                         <Button
                           label="Previous"
-                          classname="bg-[#CACACA] text-white px-10"
+                          classname="bg-[#CACACA] text-white px-2 md:px-10"
                         />
                       </div>
                       <div>
                         <Button
                           label="Next"
-                          classname="bg-primary text-white px-10"
+                          classname="bg-primary text-white px-2 md:px-10"
                         />
                       </div>
                     </div>

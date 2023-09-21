@@ -171,7 +171,7 @@ const ListUser = () => {
                   onClick={() => handleAddUser()}
                 />
               </div>
-              <div className="flex flex-row justify-end mt-3">
+              <div className="grid  justify-items-start min-w-12 sm:flex flex-row justify-end mt-3">
                 <InputSearch placeholder="Search User" />
               </div>
               <div>

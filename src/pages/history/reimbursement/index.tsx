@@ -54,10 +54,12 @@ const ListReimbursement = () => {
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
           <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
+            <div className="flex flex-row ml-8 md:mx-10 mb-5  place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
                   src="../../../public/logo.png"
@@ -74,12 +76,12 @@ const ListReimbursement = () => {
           <motion.div variants={childAnimation}>
           <div className="flex flex-row mx-10 ">
             <a href="/history/attendence" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Attendance
               </div>
             </a>
             <a href="/history/timeoff" className="text-gray-500 hover:text-gray-500">
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Time Off
               </div>
             </a>
@@ -94,7 +96,7 @@ const ListReimbursement = () => {
           </div>
           <div className="bg-white mx-10 p-6 rounded-b-lg rounded-tr-lg ">
             <div className="flex flex-col">
-              <div className="flex flex-row justify-between">
+              <div className="grid grid-cols-1 gap-4 justify-center mx-auto md:flex flex-row justify-between">
                 <div>
                   <div className="form-control w-full max-w-xs">
                     <input
@@ -141,17 +143,17 @@ const ListReimbursement = () => {
                     </tbody>
                   </table>
                 </div>
-                  <div className="flex flex-row justify-end gap-2 mt-5">
+                  <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                       <Button
                         label="Previous"
-                        classname="bg-[#CACACA] text-white px-10"
+                        classname="bg-[#CACACA] text-white px-2 md:px-10"
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname="bg-primary text-white px-10"
+                        classname="bg-primary text-white px-2 md:px-10"
                       />
                     </div>
                   </div>

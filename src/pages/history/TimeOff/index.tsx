@@ -9,6 +9,9 @@ import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Input from "../../../component/Input";
 import Popup from "../../../component/Popup";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMode } from "../../../features/modeSlice";
 
 const animation = {
   hidden: {
@@ -38,6 +41,13 @@ const childAnimation = {
 const HistoryTimeOff = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [popupDetail, setPopupDetail] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const mode = useSelector((state: any) => state.mode.mode);
+  const dispatch = useDispatch();
+  const handleNext = () => {
+ 
+    navigate('/history/attendence');
+  };
 
   const handleDetail = () => {
     setPopupDetail(!popupDetail);
@@ -73,10 +83,12 @@ const HistoryTimeOff = () => {
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
           <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
-            <div className="mx-10 mb-5 flex flex-row place-items-center">
+            <div className="flex flex-row ml-8 md:mx-10 mb-5  place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
                   src="../../../public/logo.png"
@@ -96,23 +108,30 @@ const HistoryTimeOff = () => {
               href="/history/attendence"
               className="text-gray-500 hover:text-gray-500"
             >
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Attendance
               </div>
             </a>
             <a
               href="/history/timeoff"
-              className="text-gray-500 hover:text-gray-500"
+              className="text-gray-500 hover:text-gray-500 flex flex-rows"
             >
               <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Time Off
+              </div>
+              <div className=" md:hidden">
+                <Button
+                  label="Next"
+                  classname={`${mode === true ? 'bg-dark-button' : 'bg-gray-300'} text-white px-2 md:px-10`}
+                  onClick={handleNext}
+                />
               </div>
             </a>
             <a
               href="/history/reimbursement"
               className="text-gray-500 hover:text-gray-500"
             >
-              <div className="bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
                 Reimbursement
               </div>
             </a>
@@ -196,7 +215,7 @@ const HistoryTimeOff = () => {
                     </tbody>
                   </table>
                 </div>
-                  <div className="flex flex-row justify-end gap-2 mt-5">
+                  <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                       <Button
                         label="Previous"
