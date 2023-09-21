@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../../component/Navbar";
-import Sidebar from "../../../component/Sidebar";
-import Button from "../../../component/Button";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMode } from "../../../features/modeSlice";
+import Navbar from "../../../../component/Navbar";
+import { toggleMode } from "../../../../features/modeSlice";
+import Sidebar from "../../../../component/Sidebar";
+import Button from "../../../../component/Button";
+import axios from "axios";
+import Cookie from 'js-cookie'
 
 const animation = {
   hidden: {
@@ -36,9 +38,10 @@ const AddImportantData = () => {
   const navigate = useNavigate();
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
+  const token = Cookie.get('token')
 
   //Data
-  const [npwp, setNpwp] = useState<number>('');
+  const [npwp, setNpwp] = useState<number>("");
   const [emergencyName, setEmergencyName] = useState<string>("");
   const [emergencyStatus, setEmergencyStatus] = useState<string>("");
   const [emergencyContact, setEmergencyContact] = useState<number>(0);
@@ -52,22 +55,43 @@ const AddImportantData = () => {
     body.style.backgroundColor = "#F2F2F2";
   }
 
-  const handleSubmit = async(e) => {
+  // const getUser = () => {
+  //   axios
+  //     .get(`https://backendlagi.online/users/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setNpwp(res?.data?.data?)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formDataPersonal = new FormData();
-    formDataPersonal.append('npwp', npwp);
-    formDataPersonal.append('emergencyName', emergencyName);
-    formDataPersonal.append('emergencyStatus', emergencyStatus);
-    formDataPersonal.append('emergencyContact', emergencyContact);
-    formDataPersonal.append('bpjs', bpjs);
+    formDataPersonal.append("npwp", npwp);
+    formDataPersonal.append("emergencyName", emergencyName);
+    formDataPersonal.append("emergencyStatus", emergencyStatus);
+    formDataPersonal.append("emergencyContact", emergencyContact);
+    formDataPersonal.append("bpjs", bpjs);
 
-    const formDataString = JSON.stringify(Object.fromEntries(formDataPersonal.entries()));
-    
-    localStorage.setItem('formDataImportant', formDataString);
+    const formDataString = JSON.stringify(
+      Object.fromEntries(formDataPersonal.entries())
+    );
+
+    localStorage.setItem("formDataImportant", formDataString);
 
     navigate("/user/addeducation");
-  }
+  };
+
+  useEffect(() => {
+    // getUser()
+  }, [])
 
   return (
     <section>
@@ -93,7 +117,7 @@ const AddImportantData = () => {
             } mx-10 p-6 rounded-b-lg rounded-tr-lg`}
           >
             <div className="flex justify-center">
-              <div className="hidden md:flex flex-col justify-center">
+              <div className="flex flex-col justify-center">
                 <div className="flex justify-between items-center mt-5 max-w-xs">
                   <div className="w-10 h-10 bg-blue-500 rounded-full flex justify-center items-center text-white font-bold">
                     1
@@ -205,7 +229,6 @@ const AddImportantData = () => {
                         classname={`${
                           mode === true ? "bg-dark-button" : "bg-primary"
                         } text-white px-10`}
-                        
                       />
                     </div>
                     <div>
