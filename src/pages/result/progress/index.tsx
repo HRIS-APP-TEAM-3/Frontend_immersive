@@ -63,12 +63,14 @@ const Progress = () => {
         <Navbar onClick={() => dispatch(toggleMode())}/>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
           <motion.div variants={childAnimation} className={`${mode === true ? 'text-white' : ''} text-3xl mx-10 mb-2`}>Progress</motion.div>
           <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="flex flex-col">
-              <div className="flex justify-end">
+              <div className="grid grid-cols-1 gap-4 grid justify-items-center md:flex flex-row justify-between">
                 <Button
                   label="Add Progress"
                   classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
@@ -112,17 +114,17 @@ const Progress = () => {
                     </tbody>
                   </table>
                 </div>
-                  <div className="flex flex-row justify-end gap-2 mt-5">
+                  <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                       <Button
                         label="Previous"
-                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white`}
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-[#CACACA]'} text-white px-2 md:px-10`}
                       />
                     </div>
                     <div>
                       <Button
                         label="Next"
-                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white`}
+                        classname={`${mode === true ? 'bg-dark-button' : 'bg-primary'} text-white px-2 md:px-10`}
                       />
                     </div>
                   </div>

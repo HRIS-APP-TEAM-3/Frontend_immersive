@@ -64,6 +64,7 @@ const Navbar: FC<NavbarProps> = ({ onClick }) => {
           </div>
         </motion.a>
         <motion.span
+          className="hidden sm:block"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 300 }}
         >

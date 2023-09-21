@@ -129,8 +129,10 @@ const Dashboard = () => {
         </motion.div>
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[68vh]" />
-        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
+      <div className="hidden md:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
+        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw]  flex flex-col sm:grid grid-cols ">
           <Personal />
           <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="text-center mb-4 text-[20px] font-semibold">
@@ -165,7 +167,7 @@ const Dashboard = () => {
               </div>
             </div>
           </motion.div>
-          <motion.div variants={childAnimation} className="grid grid-cols-3 gap-3 mt-5 mx-10 mb-10">
+          <motion.div variants={childAnimation} className="flex flex-col sm:grid grid-cols gap-3 mt-5 mx-10 mb-10 lg:grid-cols-3 ">
             <div className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} p-3 rounded-lg w-full h-72`}>
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Result Target

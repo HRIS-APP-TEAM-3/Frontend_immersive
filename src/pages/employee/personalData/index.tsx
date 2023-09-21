@@ -82,7 +82,9 @@ const PersonalData = () => {
         <Navbar onClick={() => dispatch(toggleMode())} />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-        <Sidebar height="h-[80vh]" />
+      <div className="hidden sm:flex">
+          <Sidebar  height="h-[80vh]" />
+        </div>
         <motion.div
           variants={animation}
           initial="hidden"
