@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import Navbar from "../../../component/Navbar";
-import Sidebar from "../../../component/Sidebar";
-import Button from "../../../component/Button";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMode } from "../../../features/modeSlice";
 import axios from "axios";
 import Cookie from "js-cookie";
+import Navbar from "../../../../component/Navbar";
+import { toggleMode } from "../../../../features/modeSlice";
+import Sidebar from "../../../../component/Sidebar";
+import Button from "../../../../component/Button";
 
 const animation = {
   hidden: {
@@ -37,8 +37,14 @@ const childAnimation = {
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const id = location?.state?.id
+
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
+
+
   const [manajer, setManajer] = useState<any>([]);
   const [allDivision, setAllDivision] = useState<any>([]);
   const [allRole, setAllRole] = useState<any>([]);
@@ -51,15 +57,16 @@ const AddUser = () => {
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<number>(0);
   const [division, setDivision] = useState<number>();
-  const [level, setLevel] = useState<string>('');
+  const [level, setLevel] = useState<number>();
   const [userLeadId, setUserLeadId] = useState<number>();
   const [birthdayPlace, setBirthdayPlace] = useState<string>("");
   const [birthday, setBirthday] = useState<Date>();
-  const [gender, setGender] = useState<string>("Male");
+  const [gender, setGender] = useState<string>("");
   const [religion, setReligion] = useState<string>("");
   const [file, setFile] = useState<any>(null);
   const [address, setAddress] = useState<string>("");
-  console.log(division);
+  console.log(level);
+  
 
   const body = document.body;
 
@@ -69,9 +76,30 @@ const AddUser = () => {
     body.style.backgroundColor = "#F2F2F2";
   }
 
-  const handlePreviousClick = () => {
-    navigate("/user/adduser");
-  };
+  const getUser = () => {
+    axios.get(`https://backendlagi.online/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    .then((res) => {
+       setFirstName(res.data.data.first_name);
+       setLastName(res.data.data.last_name);
+       setEmail(res.data.data.email);
+       setPhone(res.data.data.phone_number);
+       setDivision(res.data.data.division.id);
+       setLevel(res.data.data.role.id);
+       setUserLeadId(res.data.data.user_lead_id);
+       setBirthdayPlace(res.data.data.user_important_data.birth_place);
+       setBirthday(res.data.data.user_important_data.birth_date);
+       setGender(res.data.data.gender);
+       setReligion(res.data.data.user_important_data.Religion);
+       setAddress(res.data.data.address);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
 
   const getManager = () => {
     axios
@@ -151,6 +179,7 @@ const AddUser = () => {
       setDivision("2");
     }
 
+    getUser()
     getManager();
     getDivision();
     getRole();
@@ -352,7 +381,7 @@ const AddUser = () => {
                             );
                           })}
                       </div>
-                    ) : level === "3" ? (
+                    ) : level === "3" || level === 3  ? (
                       <div className="w-full">
                         <div className="form-control w-full max-w-xs">
                           <label className="label">
@@ -436,9 +465,9 @@ const AddUser = () => {
                             <input
                               type="checkbox"
                               name="genderFemale"
-                              value="Female"
+                              value="female"
                               onChange={(e) => setGender(e.target.value)}
-                              checked={gender === "Female"}
+                              checked={gender === "female"}
                             />
                             Female
                           </label>
@@ -496,7 +525,6 @@ const AddUser = () => {
                         classname={`${
                           mode === true ? "bg-dark-button" : "bg-primary"
                         } text-white px-10`}
-                        onClick={handlePreviousClick}
                       />
                     </div>
                     <div>

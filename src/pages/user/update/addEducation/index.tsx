@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Navbar from "../../../component/Navbar";
-import Sidebar from "../../../component/Sidebar";
-import Button from "../../../component/Button";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMode } from "../../../features/modeSlice";
 import Cookie from 'js-cookie'
+import Navbar from "../../../../component/Navbar";
+import { toggleMode } from "../../../../features/modeSlice";
+import Sidebar from "../../../../component/Sidebar";
+import Button from "../../../../component/Button";
 
 const animation = {
   hidden: {
@@ -77,7 +77,6 @@ const AddEducation = () => {
     //   const responseData = await axios.post('/users', formData), {
     //     headers: {
     //       Authorization: `Bearer ${token}`
-            
     //     },
     //   }
     // } catch(error) {
