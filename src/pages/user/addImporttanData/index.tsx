@@ -43,7 +43,7 @@ const AddImportantData = () => {
   const [emergencyStatus, setEmergencyStatus] = useState<string>("");
   const [emergencyContact, setEmergencyContact] = useState<number>(0);
   const [bpjs, setBpjs] = useState<number>();
-
+  
   const body = document.body;
 
   if (mode === true) {
@@ -68,6 +68,7 @@ const AddImportantData = () => {
 
     navigate("/user/addeducation");
   }
+  
 
   return (
     <section>

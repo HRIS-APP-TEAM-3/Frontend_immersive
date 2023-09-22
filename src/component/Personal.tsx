@@ -43,7 +43,7 @@ const Personal = () => {
       variants={childAnimation}
       className="flex flex-row justify-between mr-10"
     >
-      <div className="mx-10 mb-5 flex flex-row place-items-center">
+      <div className="lg:mx-10 mb-5 flex flex-row place-items-center">
         <div
           className={`${
             mode === true ? "bg-dark" : "bg-white"

@@ -52,14 +52,12 @@ const AddUser = () => {
   const [phone, setPhone] = useState<number>(0);
   const [division, setDivision] = useState<number>();
   const [level, setLevel] = useState<string>('');
-  const [userLeadId, setUserLeadId] = useState<number>();
+  const [userLeadId, setUserLeadId] = useState<string>('');
   const [birthdayPlace, setBirthdayPlace] = useState<string>("");
   const [birthday, setBirthday] = useState<Date>();
   const [gender, setGender] = useState<string>("Male");
   const [religion, setReligion] = useState<string>("");
-  const [file, setFile] = useState<any>(null);
   const [address, setAddress] = useState<string>("");
-  console.log(division);
 
   const body = document.body;
 
@@ -132,7 +130,6 @@ const AddUser = () => {
     formDataPersonal.append("birthday", birthday);
     formDataPersonal.append("gender", gender);
     formDataPersonal.append("religion", religion);
-    formDataPersonal.append("file", file);
     formDataPersonal.append("address", address);
     formDataPersonal.append("user_lead_id", userLeadId);
 
@@ -148,14 +145,39 @@ const AddUser = () => {
   useEffect(() => {
     if (level === "1") {
       setDivision("1");
+      setUserLeadId(userId)
     } else if (level === "2") {
       setDivision("2");
+      setUserLeadId(userId)
+    } else if (level === "3") {
+      setUserLeadId(userId)
     }
 
     getManager();
     getDivision();
     getRole();
+
   }, [level]);
+
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0];
+  
+    // Hapus gambar sementara yang ada (jika ada)
+    sessionStorage.removeItem('temporaryImage');
+  
+    if (selectedImage) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        const imageData = event.target.result;
+        sessionStorage.setItem("temporaryImage", imageData);
+      };
+      reader.readAsDataURL(selectedImage);
+    }
+  };
+  
+
+  const temporaryImage = sessionStorage.getItem("temporaryImage");
 
   return (
     <section>
@@ -321,7 +343,6 @@ const AddUser = () => {
                           </label>
                           <select
                             className="select select-bordered bg-transparent"
-                            value={division}
                             onChange={(e) => setUserLeadId(e.target.value)}
                             required
                           >
@@ -329,9 +350,10 @@ const AddUser = () => {
                               Pick one
                             </option>
                             {manajer &&
-                              manajer.map((item) => {
+                              manajer.map((item, index) => {
                                 return (
                                   <option
+                                    key={index}
                                     className="text-black"
                                     value={item.ID}
                                   >
@@ -470,7 +492,7 @@ const AddUser = () => {
                       <input
                         type="file"
                         className="file-input file-input-primary file-input-md bg-transparent max-w-3xl"
-                        onChange={(e) => setFile(e.target.files[0])}
+                        onChange={handleImageChange}
                         required
                       />
                     </div>

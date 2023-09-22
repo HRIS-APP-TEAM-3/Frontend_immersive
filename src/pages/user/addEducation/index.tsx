@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
 import Cookie from "js-cookie";
+import axios from "axios";
 
 const animation = {
   hidden: {
@@ -46,8 +47,8 @@ const AddEducation = () => {
   const [graduateYear, setGraduateYear] = useState<number>(0);
   const personalData = JSON.parse(localStorage.getItem("formDataPersonal"));
   const importantData = JSON.parse(localStorage.getItem("formDataImportant"));
-  const merge = { ...personalData, ...importantData };
-  
+  const profile_photo = sessionStorage.getItem('temporaryImage')
+
   const body = document.body;
 
   if (mode === true) {
@@ -63,56 +64,65 @@ const AddEducation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData();
+    const formData: any = new FormData();
+
+    const userLead: number = parseInt(personalData.user_lead_id)
+    const roleID: number = parseInt(personalData.level)
+    const divisionID: number = parseInt(personalData.division)
   
     formData.append('first_name', personalData.firstName);
     formData.append('last_name', personalData.lastName);
     formData.append('email', personalData.email);
     formData.append('phone_number', personalData.phone);
     formData.append('address', personalData.address);
-    formData.append('profile_photo', personalData.file);
-    formData.append('user_lead_id', parseInt(personalData.user_lead_id));
-    formData.append('role_id', parseInt(personalData.level));
-    formData.append('division_id', parseInt(personalData.division));
+    formData.append('profile_photo', profile_photo);
+    formData.append('user_lead_id', userLead);
+    formData.append('role_id', roleID);
+    formData.append('division_id', divisionID);
+    
+    // // Objek user_important_data
+    // const userImportantData = {
+    //   birth_place: personalData.birthdayPlace,
+    //   birth_date: personalData.birthday,
+    //   emergency_name: importantData.emergencyName,
+    //   emergency_status: importantData.emergencyStatus,
+    //   emergency_phone: importantData.emergencyContact,
+    //   npwp: importantData.npwp,
+    //   bpjs: importantData.bpjs,
+    //   religion: personalData.religion,
+    //   gender: personalData.gender,
+    // };
+
+    // formData.append('user_important_data', JSON.stringify(userImportantData));
   
-    // Objek user_important_data
-    const userImportantData = {
-      birth_place: personalData.birthdayPlace,
-      birth_date: personalData.birthday,
-      emergency_name: importantData.emergencyName,
-      emergency_status: importantData.emergencyStatus,
-      emergency_phone: importantData.emergencyContact,
-      npwp: importantData.npwp,
-      bpjs: importantData.bpjs,
-      religion: personalData.religion,
-      gender: personalData.gender,
-    };
+    // // Array user_education_data
+    // const userEducationData = [
+    //   {
+    //     name: name,
+    //     start_year: startYear,
+    //     graduate_year: graduateYear,
+    //   },
+    // ];
   
-    formData.append('user_important_data', JSON.stringify(userImportantData));
+    // formData.append('user_education_data', JSON.stringify(userEducationData));
   
-    // Array user_education_data
-    const userEducationData = [
-      {
-        name: name,
-        start_year: startYear,
-        graduate_year: graduateYear,
-      },
-    ];
-  
-    formData.append('user_education_data', JSON.stringify(userEducationData));
-  
-    // try {
-    //   const responseData = await axios.post('/users', formData, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-    //   localStorage.removeItem('formDataPersonal');
-    //   localStorage.removeItem('formDataImportant');
-    //   // Lakukan sesuatu dengan responseData jika diperlukan
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const responseData = await axios.post('https://backendlagi.online/users', 
+      formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": 'multipart/form-data'
+        },
+      })
+
+      localStorage.removeItem('formDataPersonal');
+      localStorage.removeItem('formDataImportant');
+      sessionStorage.removeItem('temporaryImage');
+      navigate('/user');
+
+    } catch (error) {
+      console.log(error);
+    }
   };
   
 
@@ -181,6 +191,8 @@ const AddEducation = () => {
                           type="text"
                           placeholder="Education"
                           className="input input-bordered w-full max-w-xs bg-transparent"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>
@@ -194,11 +206,15 @@ const AddEducation = () => {
                             type="text"
                             placeholder="Years"
                             className="input input-bordered w-full max-w-xs bg-transparent"
+                            value={startYear}
+                            onChange={(e) => setStartYear(e.target.value)}
                           />
                           <input
                             type="text"
                             placeholder="Years"
                             className="input input-bordered w-full max-w-xs bg-transparent"
+                            value={graduateYear}
+                            onChange={(e) => setGraduateYear(e.target.value)}
                           />
                         </div>
                       </div>

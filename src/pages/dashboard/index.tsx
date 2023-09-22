@@ -119,8 +119,8 @@ const Dashboard = () => {
         <motion.div variants={animation} animate="visible" initial="hidden">
           <Navbar onClick={() => dispatch(toggleMode())} />
         </motion.div>
-        <motion.div variants={animation} animate="visible" initial="hidden" className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} h-[14vh] px-24 flex flex-col py-2.5`}>
-          <motion.div variants={childAnimation} className="text-3xl font-bold">
+        <motion.div variants={animation} animate="visible" initial="hidden" className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} h-[14vh] lg:px-24 px-10 flex flex-col py-2.5`}>
+          <motion.div variants={childAnimation} className="lg:text-3xl text-xl font-bold">
             Welcome to HRIS
           </motion.div>
           <motion.div variants={childAnimation} className="text-xs mt-1">
@@ -128,13 +128,13 @@ const Dashboard = () => {
           </motion.div>
         </motion.div>
       </div>
-      <div className="mt-10 px-10 flex flex-row">
+      <div className="mt-10 px-10  flex flex-row">
       <div className="hidden md:flex">
-          <Sidebar  height="h-[80vh]" />
+          <Sidebar  height="h-[67vh]" />
         </div>
         <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw]  flex flex-col sm:grid grid-cols ">
           <Personal />
-          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
+          <motion.div variants={childAnimation} className={`${mode === true ? 'bg-dark hover:bg-dark text-white' : 'bg-white hover:bg-white'} lg:mx-10 p-6 rounded-b-lg rounded-tr-lg`}>
             <div className="text-center mb-4 text-[20px] font-semibold">
               Message
             </div>
@@ -167,7 +167,7 @@ const Dashboard = () => {
               </div>
             </div>
           </motion.div>
-          <motion.div variants={childAnimation} className="flex flex-col sm:grid grid-cols gap-3 mt-5 mx-10 mb-10 lg:grid-cols-3 ">
+          <motion.div variants={childAnimation} className="flex flex-col sm:grid grid-cols gap-3 mt-5 lg:mx-10 mb-10 lg:grid-cols-3 ">
             <div className={`${mode === true ? 'bg-dark text-white' : 'bg-white'} p-3 rounded-lg w-full h-72`}>
               <div className="text-center mb-2 text-[16px] font-semibold">
                 Result Target

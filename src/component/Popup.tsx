@@ -46,7 +46,6 @@ const Popup: FC<PopupProps> = ({ isOpen, onClose, children }) => {
       : "hidden",
   };
 
-
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
