@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Personal from "../../../component/Personal";
 import { toggleMode } from "../../../features/modeSlice";
 import TopCard from "../../../component/TopCard";
+import Cookie from 'js-cookie'
+import axios from "axios";
 
 const animation = {
   hidden: {
@@ -39,6 +41,11 @@ const PersonalData = () => {
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
 
+  const [data, setData] = useState<any>({})
+
+  const id = Cookie.get('id')
+  const token = Cookie.get('token')
+
   const handleAdd = () => {
     setAddReimbursement(!addReimbursement);
   };
@@ -50,6 +57,24 @@ const PersonalData = () => {
   } else {
     body.style.backgroundColor = "#F2F2F2";
   }
+
+  const getData = () => {
+    axios.get(`https://backendlagi.online/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setData(res?.data?.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <section>
@@ -92,16 +117,16 @@ const PersonalData = () => {
                   <p>Address:</p>
                 </div>
                 <div className="font-semibold leading-8">
-                  <p>Denson</p>
-                  <p>IT Departement</p>
-                  <p>Leader</p>
-                  <p>Denson@example.com</p>
-                  <p>+1 (123) 456-7890</p>
-                  <p>Oktober 15, 1999</p>
-                  <p>Laki-laki</p>
-                  <p>Kristen</p>
+                  <p>{data?.first_name ? data?.first_name : '-'} {data?.last_name ? data?.last_name : '-'}</p>
+                  <p>{data?.division?.name ? data?.division?.name : '-'}</p>
+                  <p>{data?.role?.name ? data?.role?.name : '-'}</p>
+                  <p>{data?.email ? data?.email : '-'}</p>
+                  <p>{data?.phone_number ? data?.phone_number : '-'}</p>
+                  <p>{data?.user_important_data?.birth_date ? data?.user_important_data?.birth_date : '-'}</p>
+                  <p>{data?.gender ? data?.gender : '-'}</p>
+                  <p>{data?.user_important_data?.Religion ? data?.user_important_data?.Religion : '-'}</p>
                   <p>
-                    Jl.Wr Supratman,Enrekang, kota Makassar{" "}
+                    {data?.address ? data?.address : '-'}
                   </p>
                 </div>
               </div>
@@ -112,12 +137,6 @@ const PersonalData = () => {
                 <div className={`ml-8 ${mode === true ? 'text-white' : 'text-gray-600'} leading-8`}>
                   <p>
                     2019 - 2021 S1 Internsional School
-                  </p>
-                  <p>
-                    2021 - 2022 S2 Univecity Of Indonesia
-                  </p>
-                  <p>
-                    2021 - 2022 S2 Univecity Of Indonesia
                   </p>
                 </div>
               </div>

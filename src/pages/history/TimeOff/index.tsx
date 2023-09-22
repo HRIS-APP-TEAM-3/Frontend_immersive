@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../../component/Navbar";
 import Sidebar from "../../../component/Sidebar";
 import Button from "../../../component/Button";
@@ -12,6 +12,8 @@ import Popup from "../../../component/Popup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
+import axios from "axios";
+import Cookie from "js-cookie";
 
 const animation = {
   hidden: {
@@ -44,9 +46,13 @@ const HistoryTimeOff = () => {
   const navigate = useNavigate();
   const mode = useSelector((state: any) => state.mode.mode);
   const dispatch = useDispatch();
+
+  const [data, setData] = useState<any>([]);
+
+  const token = Cookie.get("token");
+
   const handleNext = () => {
- 
-    navigate('/history/attendence');
+    navigate("/history/attendence");
   };
 
   const handleDetail = () => {
@@ -77,17 +83,44 @@ const HistoryTimeOff = () => {
     </div>
   );
 
+  const getData = () => {
+    axios
+      .get("https://node.backendlagi.online/leave/alluser", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setData(res?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <section>
       <div>
         <Navbar />
       </div>
       <div className="mt-10 px-10 flex flex-row">
-      <div className="hidden md:flex">
-          <Sidebar  height="h-[80vh]" />
+        <div className="hidden md:flex">
+          <Sidebar height="h-[80vh]" />
         </div>
-        <motion.div variants={animation} initial='hidden' animate='visible' className="w-[80vw] flex flex-col">
-          <motion.div variants={childAnimation} className="flex flex-row justify-between mr-10">
+        <motion.div
+          variants={animation}
+          initial="hidden"
+          animate="visible"
+          className="w-[80vw] flex flex-col"
+        >
+          <motion.div
+            variants={childAnimation}
+            className="flex flex-row justify-between mr-10"
+          >
             <div className="flex flex-row ml-8 md:mx-10 mb-5  place-items-center">
               <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
                 <img
@@ -103,118 +136,94 @@ const HistoryTimeOff = () => {
             </div>
           </motion.div>
           <motion.div variants={childAnimation}>
-          <div className="flex flex-row mx-10 ">
-            <a
-              href="/history/attendence"
-              className="text-gray-500 hover:text-gray-500"
-            >
-              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Attendance
-              </div>
-            </a>
-            <a
-              href="/history/timeoff"
-              className="text-gray-500 hover:text-gray-500 flex flex-rows"
-            >
-              <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Time Off
-              </div>
-              <div className=" md:hidden">
-                <Button
-                  label="Next"
-                  classname={`${mode === true ? 'bg-dark-button' : 'bg-gray-300'} text-white px-2 md:px-10`}
-                  onClick={handleNext}
-                />
-              </div>
-            </a>
-            <a
-              href="/history/reimbursement"
-              className="text-gray-500 hover:text-gray-500"
-            >
-              <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
-                Reimbursement
-              </div>
-            </a>
-          </div>
-          <div className="bg-white mx-10 p-6 rounded-lg">
-            <div className="flex flex-col text-end">
-              <div>
-                <div className="mb-4">
-                  <DatePicker
-                    selected={selectedDate}
-                    onChange={handleDateChange}
-                    dateFormat="dd/MM/yyyy"
-                    customInput={<CustomDatePickerInput />}
+            <div className="flex flex-row mx-10 ">
+              <a
+                href="/history/attendence"
+                className="text-gray-500 hover:text-gray-500"
+              >
+                <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+                  Attendance
+                </div>
+              </a>
+              <a
+                href="/history/timeoff"
+                className="text-gray-500 hover:text-gray-500 flex flex-rows"
+              >
+                <div className="bg-white px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+                  Time Off
+                </div>
+                <div className=" md:hidden">
+                  <Button
+                    label="Next"
+                    classname={`${
+                      mode === true ? "bg-dark-button" : "bg-gray-300"
+                    } text-white px-2 md:px-10`}
+                    onClick={handleNext}
                   />
                 </div>
-              </div>
-
-              <div>
-                <div className="overflow-x-auto mt-4">
-                  <table className="table">
-                    <thead className="bg-primary text-white border-none">
-                      <tr className="border-none">
-                        <th className="rounded-l-md">No.</th>
-                        <th>Created At</th>
-                        <th>Policy Code</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Notes</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="border-none">
-                      <tr className="border-none">
-                        <td>1</td>
-                        <td>12 Sept</td>
-                        <td>CT</td>
-                        <td>12 Sept</td>
-                        <td>17 Sept</td>
-                        <td>
-                          <button
-                            onClick={() => handleDetail()}
-                            className="hover:outline-none hover:border-white"
-                          >
-                            <i className="fa-solid fa-eye"></i>
-                          </button>
-                        </td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr className="border-none">
-                        <td>2</td>
-                        <td>15 Sept</td>
-                        <td>CE</td>
-                        <td>20 Sept</td>
-                        <td>25 Sept</td>
-                        <td>
-                          <button
-                            onClick={() => handleDetail()}
-                            className="hover:outline-none hover:border-white"
-                          >
-                            <i className="fa-solid fa-eye"></i>
-                          </button>
-                        </td>
-                        <td>Approved</td>
-                      </tr>
-                      <tr className="border-none">
-                        <td>3</td>
-                        <td>18 Sept</td>
-                        <td>CT</td>
-                        <td>25 Sept</td>
-                        <td>30 Sept</td>
-                        <td>
-                          <button
-                            onClick={() => handleDetail()}
-                            className="hover:outline-none hover:border-white"
-                          >
-                            <i className="fa-solid fa-eye"></i>
-                          </button>
-                        </td>
-                        <td>Rejected</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              </a>
+              <a
+                href="/history/reimbursement"
+                className="text-gray-500 hover:text-gray-500"
+              >
+                <div className="hidden md:block bg-[#E3E3E3] px-12 py-3 rounded-t-lg hover:bg-white transition-colors ease-in-out">
+                  Reimbursement
                 </div>
+              </a>
+            </div>
+            <div className="bg-white mx-10 p-6 rounded-lg">
+              <div className="flex flex-col text-end">
+                <div>
+                  <div className="mb-4">
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={handleDateChange}
+                      dateFormat="dd/MM/yyyy"
+                      customInput={<CustomDatePickerInput />}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="overflow-x-auto mt-4">
+                    <table className="table">
+                      <thead className="bg-primary text-white border-none">
+                        <tr className="border-none">
+                          <th className="rounded-l-md">User</th>
+                          <th>Created At</th>
+                          <th>Policy Code</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Notes</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="border-none">
+                        {data.map((user, index) =>
+                          user.leaves.map((leave, leaveIndex) => (
+                            <tr key={leave._id} className="border-none">
+                              <td>{user.user_id}</td>
+                              <td>{leave.updated_at}</td>
+                              <td>{leave.policy_code}</td>
+                              <td>{leave.start_date}</td>
+                              <td>{leave.end_date}</td>
+                              <td>
+                                <button
+                                  onClick={() => handleDetail(leave)}
+                                  className="hover:outline-none hover:border-white"
+                                >
+                                  <i className="fa-solid fa-eye"></i>
+                                </button>
+                              </td>
+                              <td>
+                                {leave.lead_approval === true && leave.hr_approval === true ? "Approved" : "Pending"}
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                   <div className="flex flex-row justify-center gap-2 mt-5 md:justify-end">
                     <div>
                       <Button
@@ -229,23 +238,26 @@ const HistoryTimeOff = () => {
                       />
                     </div>
                   </div>
+                </div>
+              </div>
+              <div>
+                <Popup
+                  isOpen={popupDetail}
+                  onClose={() => setPopupDetail(false)}
+                >
+                  <div className="flex flex-col px-7 py-5">
+                    <div className="text-center text-[24px] font-semibold">
+                      Notes
+                    </div>
+                    <div className="mt-4 leading-7">
+                      <div className="">
+                        <Input placeholder="Text Here .." />
+                      </div>
+                    </div>
+                  </div>
+                </Popup>
               </div>
             </div>
-            <div>
-            <Popup isOpen={popupDetail} onClose={() => setPopupDetail(false)}>
-              <div className="flex flex-col px-7 py-5">
-                <div className="text-center text-[24px] font-semibold">
-                  Notes
-                </div>
-                <div className="mt-4 leading-7">
-                  <div className="">
-                    <Input placeholder="Text Here .." />
-                  </div>
-                </div>
-              </div>
-            </Popup>
-          </div>
-          </div>
           </motion.div>
         </motion.div>
       </div>

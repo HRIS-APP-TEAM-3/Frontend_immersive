@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Cookie from 'js-cookie'
 
 const TopCard = () => {
   const location = useLocation();
@@ -25,7 +26,7 @@ const TopCard = () => {
   const mode = useSelector((state: any) => state.mode.mode);
   return (
     <div className="flex flex-row mx-10 ">
-      <a href="/personaldata" className="text-gray-500 hover:text-gray-500">
+      <a href='/personaldata' className="text-gray-500 hover:text-gray-500">
         <div
           className={`${
             mode === true

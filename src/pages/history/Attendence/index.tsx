@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMode } from "../../../features/modeSlice";
+import Personal from "../../../component/Personal";
 
 const animation = {
   hidden: {
@@ -75,24 +76,6 @@ const Attendance = () => {
           animate="visible"
           className="w-[80vw] flex flex-col"
         >
-          <motion.div
-            variants={childAnimation}
-            className="flex flex-row justify-between mr-10"
-          >
-            <div className="flex flex-row ml-8 md:mx-10 mb-5  place-items-center">
-              <div className="w-12 h-12 rounded-full bg-white mr-4 flex place-items-center">
-                <img
-                  src="../../../public/logo.png"
-                  alt=""
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <div className="text-[18px] font-semibold">Denson Patibang</div>
-                <div className="text-[12px]">Leader : Teknis IT</div>
-              </div>
-            </div>
-          </motion.div>
           <motion.div variants={childAnimation}>
             <div className=" flex flex-row mx-10 ">
               <a
